@@ -10,6 +10,9 @@ header, main, footer, nav, div, section  {
 a {
     text-decoration: none;
 }
+body {
+    font-family: nunito;
+}
 header {
     background-color: #A8D5BA;
     min-width: 100%;
@@ -37,7 +40,6 @@ header {
 #logo span {
     padding-left: 102px;
     color: #000000;
-    font-family: nunito;
     font-size: 30px;
     font-weight: bold;
     letter-spacing: 10px;
@@ -78,12 +80,23 @@ header {
   outline: none;
   border: 1px solid #555; 
 }
-.nav > .nav-item > .nav-link.active {
-    background-color: #dee2e6;
+.main-container {
+  min-height: 100vh;
 }
-.d-flex.flex-column.side-bar {
-    
-    background-color: #A8D5BA;
+
+.desktop-sidebar {
+  height: 100vh;
+}
+
+.nav.nav-pills.flex-column{
+    margin-top: 10px;
+    height: 100%;
+}
+.nav > .nav-item > .nav-link.active {
+  background-color: #dee2e6;
+}
+.d-flex.flex-column.side-bar {   
+  background-color: #A8D5BA;
 }
 .side-bar.expanded {
     width: 205px;
@@ -104,60 +117,121 @@ header {
     justify-content: flex-start;
     gap: 10px;
 }
+.side-bar .nav-link svg {
+         width: 24px;
+        height: 24px;
+    }
+    .breadcrumb {
+        margin-left: 16px;
+    }
+    .breadcrumb-item.active > a {
+        font-size: 20px;
+        color: #000000;
+    }
+    .breadcrumb > .breadcrumb-item {
+        font-size: 24px;
+    }
+    .breadcrumb:first-of-type {
+        margin-top: 20px;
+    }
+    .breadcrumb:last-of-type {
+        margin-top: 9px;
+    }
 @media (max-width: 768px) {
-  .search-input {
-    display: none;
-    position: absolute;
-    top: 50px;
-    right: 0;
-    width: 200px;
-    z-index: 10;
-    background: white;
-  }
+    .main-container {
+        min-height: auto;
+        padding-bottom: 66px;
+    }
+    .side-bar .nav-link svg {
+         width: 24px;
+        height: 24px;
+    }
+  
+  .desktop-sidebar {
+        height: 66px;
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+    }
+    .search-input {
+        display: none;
+        position: absolute;
+        top: 50px;
+        right: 0;
+        width: 200px;
+        z-index: 10;
+        background: white;
+    }
 
-  .search-toggle {
-    display: block;
-    border-radius: 50%;
-    background-color: #fff;
-    width: 47px;
-    height: 47px;
-  }
+    .search-toggle {
+        display: block;
+        border-radius: 50%;
+        background-color: #fff;
+        width: 47px;
+        height: 47px;
+    }
 
-  .search-container.active .search-input {
-    display: block;
-  }
-  .side-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100% !important;
-    height: 66px !important;
-    z-index: 999;
-  }
-   .side-bar .nav {
-    display: flex;
-    flex-direction: row !important;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-   }
-   .side-bar .nav-link span, .side-bar .nav-link small{
-    display: none !important;
-   }
-   .border-top {
-    border-top:  unset !important;
-   }
-   .border-bottom {
-    border-bottom: unset !important;
-   }
-   #toggleSidebar {
-    display: none !important;
-   }
-   .nav .nav-item a.nav-link.active {
-    
-    background: none;
-    border-bottom: 4px solid #dee2e6 !important;
-    padding-bottom: 16px !important;
+    .search-container.active .search-input {
+        display: block;
+    }
 
-   }
+    .side-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 66px;
+        z-index: 999;
+    }
+
+    .side-bar .nav {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around; 
+        width: 100%;
+        height: 100%;
+        padding: 0 10px;
+    }
+
+    .side-bar .nav-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    .side-bar .nav-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+        height: 100%;
+    }
+
+    .side-bar .nav-link svg {
+       
+        font-size: 1.5rem; 
+        margin-bottom: 4px;
+    }
+
+    .side-bar .nav-link span {
+        display: none;
+        font-size: 0.7rem;
+    }
+     .side-bar > .nav-item > a.nav-link.active {
+        color: #000;
+        background: none;
+    }
+
+    .side-bar #toggleSidebar {
+        display: none;
+    }
+
+    .side-bar .border-top,
+    .side-bar .border-bottom {
+        border: none ;
+    }
 }
