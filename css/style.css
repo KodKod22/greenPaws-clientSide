@@ -16,9 +16,13 @@ body {
 main {
     display: flex;
     flex-direction: row;
+    overflow-y: auto;
+    min-height: 100vh;
 }
 #warraper {
     flex-direction: column;
+    margin: 0px 125px;
+    text-align: center;
 }
 nav.flex-column.nav-pills a span {
     color: #000000;
@@ -33,13 +37,13 @@ nav.flex-column.nav-pills .nav-link.active {
     background-color:#D3D3D3 ;
 }
  
- nav.flex-column.nav-pills a:hover {
+nav.flex-column.nav-pills a:hover {
     background-color: #fff;
 }
-#warraper > nav .breadcrumb:first-of-type {
+nav .breadcrumb:first-of-type {
     margin-top: 10px;
 }
-nav .breadcrumb:last-of-type{
+nav .breadcrumb {
     margin-left: 22px;
 
 }
@@ -120,7 +124,6 @@ header {
     flex-direction: column;
     justify-content: space-between;
     background-color: #A8D5BA;
-    height: 100vh;
     width: 205px;
 }
 .btn {
@@ -128,11 +131,19 @@ header {
     background:none;
     border: none;
     margin-top: 49px;
+    display: flex;
+    text-align: center;
 }
 .btn img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+}
+#profileContiner > .btn > span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 9px;
 }
 .dropdown-menu {
     border: none;
@@ -146,39 +157,84 @@ svg {
     margin-top: 10px;
     margin-right: 10px;
     align-self: flex-end;
+    display: none;
     
 } 
 #warraper h1 {
     font-weight: bold;
     font-family: Merriweather;
-    margin-left: 134px;
     font-size: 48px;
+    margin-top: 100px;
+    
 }
 h1 + img {
-    height:367px ;
-    width: 583px;
-    margin-left: 180px;
-    margin-top: 42px;
-    border-radius: 10px;
+    height: auto; 
+    max-width: 70%; 
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto; 
+    margin-top: 42px; 
+    border-radius: 10px; 
 }
 #userNavContainer {
     display: flex;
     flex-wrap: wrap;
-    margin-left: 135px;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 143px;
     margin-top: 115px;
 }
+#userNavContainer a {
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #A8D5BA;
+    margin-bottom: 115px;
+    border-radius: 10px;
+    
+}
+.activityIcon {
+    background-image: url("/images/activity.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 56px;
+    height: 56px;
+   
+}
+.chatDotsIcon {
+    background-image: url("/images/chat-dots.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 56px;
+    height: 56px;
+    
+}
+.recycleIcon {
+    background-image: url("/images/recycle.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 56px;
+    height: 56px;
+  
+}
+#userNavContainer a span {
+    font-size: 20px;
+    margin-right: 10px;
+}
 
-@media (min-width: 768px) and (max-width:1420px ){
-    #asideBar.expanded .nav #toggleSidebar {
-        align-self: flex-end;
-    }
+@media (min-width: 360px) and (max-width: 992px) {
     #toggleSidebar {
-        align-self: center;
+        display: block;
+        align-self: center; 
         margin-top: 10px;
         margin-right: 0px;
     }
+    #asideBar.expanded .nav #toggleSidebar {
+        align-self: flex-end; 
+    }
+
     .search-input {
         display: none;
         position: absolute;
@@ -188,7 +244,6 @@ h1 + img {
         z-index: 10;
         background: white;
     }
-
     .search-toggle {
         display: block;
         border-radius: 50%;
@@ -196,14 +251,13 @@ h1 + img {
         width: 47px;
         height: 47px;
     }
-
     .search-container.active .search-input {
         display: block;
     }
+
     .nav .nav-link span {
         display: none;
     }
-     
     #asideBar {
         width: 70px;
         align-items: center;
@@ -219,28 +273,79 @@ h1 + img {
         transition: width 0.3s ease;
         overflow-y: auto;
     }
-     #asideBar.expanded .nav .nav-link  span{
+    #asideBar.expanded .nav .nav-link span {
         display: inline;
     }
     #asideBar.expanded > #profileContiner > .btn > span {
         display: inline;
-
-    } 
+    }
     #profileContiner .btn span {
         display: none;
     }
+
+    #warraper {
+        margin: 0 auto; 
+    }
+
+    #userNavContainer {
+        gap: 40px;
+        margin-top: 50px;
+        
+    }
+    #userNavContainer a {
+        width: 100px;
+        margin-bottom: 0px;
+        margin-top: 0px;
+    }
+    .activityIcon {
+      width: 56px;
+    height: 56px;
+        margin-bottom: 0px;
+        margin-top: 0px;
+    }
+    .chatDotsIcon {
+         width: 56px;
+    height: 56px;
+        margin-bottom: 0px;
+        margin-top: 0px;    
+    }
+    .recycleIcon {
+     width: 56px;
+    height: 56px;
+        margin-bottom: 0px;
+        margin-top: 0px;   
+    }
     
-   #warraper h1 {
-    font-size: 34px;
-    margin-left: 110px;
-   }
-   h1 + img {
-    height: auto;
-    max-width: 100%;
-    margin-left: 70px;
-   }
-   #userNavContainer {
-    margin-left: 70px;
-   }
-   
+    #userNavContainer a span {
+        font-size: 16px;
+    }
+}
+
+
+@media (min-width: 360px) and (max-width: 767px) { 
+    #logo {
+        height: 60px;
+        width: 60px;
+    }
+    #logo span {
+        letter-spacing: 5px;
+        padding-left: 70px;
+        font-size: 14px;
+    }
+    #warraper h1 {
+        font-size: 16px;
+    }
+    #userNavContainer {
+        flex-direction: column; 
+    }
+}
+
+
+@media (min-width: 768px) and (max-width: 992px) {
+    #warraper h1 {
+        font-size: 42px;
+    }
+    #userNavContainer {
+        flex-direction: row; 
+    }
 }

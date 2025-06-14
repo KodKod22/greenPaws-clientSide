@@ -13,7 +13,7 @@
 
         toggleSidebar.addEventListener("click",function(){
             sidebar.classList.toggle("expanded");
-            if (window.innerWidth >= 768 || window.innerWidth <= 1420) {
+            if (window.innerWidth >= 375 || window.innerWidth <= 992) {
                 if(sidebar.classList.contains('expanded')){
                     toggleIcon.innerHTML = `<path d="M2 2l12 12M14 2L2 14" stroke="currentColor" stroke-width="2"/>`;
                 }
