@@ -1,39 +1,39 @@
 function userNavContainerCreator() {
     const Container = document.createElement("div");
     Container.id = "userNavContainer";
-    const link1 = document.createElement("a");
-    link1.href = "#";
-    const link2 = document.createElement("a");
-    link2.href = "#";
-    const link3 = document.createElement("a");
-    link3.href = "#";
+    const reportsLink = document.createElement("a");
+    reportsLink.href = "#";
+    const locationsLink = document.createElement("a");
+    locationsLink.href = `listPage.html?pageTitle=Locations`;
+    const activityLink = document.createElement("a");
+    activityLink.href = "#";
 
-    const linkTitle1 = document.createElement("span");
-    linkTitle1.innerText = "reports";
-    const linkTitle2 = document.createElement("span");
-    linkTitle2.innerText = "locations";
-    const linkTitle3 = document.createElement("span");
-    linkTitle3.innerText = "activity"
+    const reportsTitle = document.createElement("span");
+    reportsTitle.innerText = "reports";
+    const locationsTitle = document.createElement("span");
+    locationsTitle.innerText = "locations";
+    const activityTitle = document.createElement("span");
+    activityTitle.innerText = "activity"
 
-    const svgString1 = document.createElement("div");
-    svgString1.classList.add("chatDotsIcon");
-    const svgString2 = document.createElement("div");
-    svgString2.classList.add("recycleIcon");
-    const svgString3 = document.createElement("div");
-    svgString3.classList.add("activityIcon");
+    const svgChatDotsIcon = document.createElement("div");
+    svgChatDotsIcon.classList.add("chatDotsIcon");
+    const svgRecycleIcon = document.createElement("div");
+    svgRecycleIcon.classList.add("recycleIcon");
+    const svgActivityIcon = document.createElement("div");
+    svgActivityIcon.classList.add("activityIcon");
 
-    link1.appendChild(svgString1);
-    link1.appendChild(linkTitle1);
+    reportsLink.appendChild(svgChatDotsIcon);
+    reportsLink.appendChild(reportsTitle);
 
-    link2.appendChild(svgString2);
-    link2.appendChild(linkTitle2);
+    locationsLink.appendChild(svgRecycleIcon);
+    locationsLink.appendChild(locationsTitle);
 
-    link3.appendChild(svgString3);
-    link3.appendChild(linkTitle3);
+    activityLink.appendChild(svgActivityIcon);
+    activityLink.appendChild(activityTitle);
 
-    Container.appendChild(link1);
-    Container.appendChild(link2);
-    Container.appendChild(link3);
+    Container.appendChild(reportsLink);
+    Container.appendChild(locationsLink);
+    Container.appendChild(activityLink);
 
     return Container;
 }
