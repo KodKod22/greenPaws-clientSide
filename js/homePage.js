@@ -37,7 +37,7 @@ function userNavContainerCreator() {
 
     return Container;
 }
-function initializePage() {
+function initializeHomePage() {
     const warraper = document.getElementById("warraper");
     const pageTitle = document.createElement("h1");
     const dogAndCatImg = document.createElement("img");
@@ -55,5 +55,5 @@ function initializePage() {
 }
 
 window.onload = () => {
-    initializePage();
+    initializeHomePage();
 };

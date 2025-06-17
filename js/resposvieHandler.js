@@ -1,6 +1,6 @@
    document.addEventListener("DOMContentLoaded", function () {
-        const toggleBtn = document.querySelector(".search-toggle");
-        const searchBox = document.querySelector(".search-container");
+        const toggleBtn = document.querySelectorAll(".search-toggle")[0];
+        const searchBox = document.querySelectorAll(".search-container")[0];
 
         toggleBtn.addEventListener("click", function () {
             searchBox.classList.toggle("active");

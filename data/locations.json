@@ -1,0 +1,47 @@
+{ 
+    "category": "Locations",  
+    "products": [  
+        {  
+            "id": "1", 
+            "city": "Ra'anana",  
+            "street": "Ahuza",
+            "food":"cat food",
+            "status":"active" 
+        },  
+        {  
+            "id": "2",   
+            "city": "Ra'anana",
+            "street": "HaBrosh",
+            "food":"cat and dog food",
+            "status":"inactive"  
+        },  
+        {  
+            "id": "3",   
+            "city": "Ra'anana",
+            "street": "Bialik",
+            "food":"dog food",
+            "status":"inactive"  
+        },
+        {  
+            "id": "4", 
+            "city": "Ra'anana",
+            "street": "Geula",
+            "food":"dog food",
+            "status":"active"  
+        },  
+        {  
+            "id": "5",   
+           "city": "Ra'anana",
+            "street": "David Elazar",
+            "food":"dog food",
+            "status":"active"  
+        },  
+        {  
+            "id": "6",   
+            "city": "Ra'anana",
+            "street": "Einstein",
+            "food":"cat food",
+            "status":"inactive"   
+        } 
+    ]  
+}

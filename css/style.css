@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 header, main, footer, nav, div, section  {
@@ -18,10 +19,15 @@ main {
     flex-direction: row;
     overflow-y: auto;
     min-height: 100vh;
+    max-height: 100%;
+    width: 100%;
+    max-width: 100%;
 }
+
 #warraper {
+    display: flex;
     flex-direction: column;
-    margin: 0px 125px;
+    
     text-align: center;
 }
 nav.flex-column.nav-pills a span {
@@ -45,8 +51,8 @@ nav .breadcrumb:first-of-type {
 }
 nav .breadcrumb {
     margin-left: 22px;
-
 }
+
 .nav .nav-link:not(.nav .nav-link:first-of-type) {
     margin-top: 44px;
 }
@@ -124,7 +130,6 @@ header {
     flex-direction: column;
     justify-content: space-between;
     background-color: #A8D5BA;
-    width: 205px;
 }
 .btn {
     color: #000000;
@@ -132,7 +137,7 @@ header {
     border: none;
     margin-top: 49px;
     display: flex;
-    text-align: center;
+    
 }
 .btn img {
     width: 40px;
@@ -164,7 +169,7 @@ svg {
     font-weight: bold;
     font-family: Merriweather;
     font-size: 48px;
-    margin-top: 100px;
+    margin-top: 50px;
     
 }
 h1 + img {
@@ -223,8 +228,128 @@ h1 + img {
     font-size: 20px;
     margin-right: 10px;
 }
+.listContiner {
+    margin-left: 100px;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 50px;
+    justify-self: center;
+}
+.listContiner a {
+    display: flex;
+    flex-direction: column;
+    text-align:start;
+    width: 200px;
+    height: 130px;
+    background-color: #FAFAFA;
+    border: solid #000000;
+    border-radius: 20px;
+    justify-content: center;
+}
+.listContiner a span {
+    width: 100%;
+    padding-left: 40px;
+    display: flex;            
+    align-items: center;
+}
+.listContiner a span:first-of-type {
+    display: none;
+}
 
+.icon-city {
+    background-image: url("/images/city.svg");
+    width: 31px;
+    height: 31px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.icon-street {
+    background-image: url("/images/street.svg");
+    width: 31px;
+    height: 31px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.icon-food {
+    background-image: url("/images/food.svg");
+    width: 31px;
+    height: 31px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.icon-active {
+    background-image: url("/images/active.svg");
+    width: 31px;
+    height: 31px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.icon-inactive {
+    background-image: url("/images/inactive.svg");
+    width: 31px;
+    height: 31px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+#fillerSearchContiner {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    margin-left: 250px;
+}
+#fillerSearchContiner > button {
+    width: 194px;
+    height: 40px;
+    background-color: #fff;
+    border: #000000 solid;
+    border-radius: 10px;
+}
+
+
+.page-view-input {
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-image: url('/images/eye-fill.svg'); 
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-size: 30px 30px;
+}
+.catagory-input {
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-image: url('/images/categories.svg'); 
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-size: 30px 30px;
+}
+.searchFiller-input {
+       padding: 8px 12px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-image: url('/images/image\ 1.png'); 
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-size: 30px 30px;
+    padding-left: 40px;
+}
 @media (min-width: 360px) and (max-width: 992px) {
+    #fillerSearchContiner {
+        margin-left: 0px;
+    }
+    .listContiner {
+        margin-left: 75px;
+    }
+   
     #toggleSidebar {
         display: block;
         align-self: center; 
@@ -261,17 +386,18 @@ h1 + img {
     #asideBar {
         width: 70px;
         align-items: center;
-        height: 100vh;
+    
     }
     #asideBar.expanded {
-        position: absolute;
+        position: fixed;
         width: 205px;
+        top: 0;
         left: 0;
         z-index: 1000;
-        height: 100vh;
         background-color: #A8D5BA;
         transition: width 0.3s ease;
         overflow-y: auto;
+        height: 100vh;
     }
     #asideBar.expanded .nav .nav-link span {
         display: inline;
@@ -285,6 +411,7 @@ h1 + img {
 
     #warraper {
         margin: 0 auto; 
+        overflow-x: hidden;
     }
 
     #userNavContainer {
@@ -334,9 +461,14 @@ h1 + img {
     }
     #warraper h1 {
         font-size: 16px;
+        margin-top: 0px;
     }
     #userNavContainer {
         flex-direction: column; 
+    }
+    #fillerSearchContiner {
+        flex-direction: column;
+        margin-left: 0px;
     }
 }
 
@@ -344,6 +476,7 @@ h1 + img {
 @media (min-width: 768px) and (max-width: 992px) {
     #warraper h1 {
         font-size: 42px;
+        margin-top: 0px;
     }
     #userNavContainer {
         flex-direction: row; 
