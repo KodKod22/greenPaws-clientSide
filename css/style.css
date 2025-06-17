@@ -306,7 +306,82 @@ h1 + img {
     border: #000000 solid;
     border-radius: 10px;
 }
+#catgoryButton {
+    width: 194px;
+    background-color: #fff;
+    border: #000 solid;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 8px 12px;
+    cursor: pointer;
+}
 
+#categoryIcon {
+    background-image: url('/images/categories.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 31px;
+    height: 31px;
+    margin-right: 10px;
+}
+
+#catgoryMenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    list-style: none;
+    padding: 0;
+    margin-top: 5px;
+    border-radius: 10px;
+    z-index: 1000;
+    display: none;
+}
+
+#catgoryMenu > li {
+    border: 1px solid #000;
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    position: relative; 
+    cursor: pointer;
+     border-radius: 10px;
+     width: 194px;
+    height: 40px;
+}
+
+.icon-arrow {
+    background-image: url('/images/arrow-left.svg'); 
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+    margin-left: 17px;
+}
+
+#catgoryMenu li > ul {
+    position: absolute;
+    top: 0;
+    right: 100%; 
+    background-color: #fff;
+    list-style: none;
+    padding: 0;
+    border-radius: 10px;
+    display: none;
+    min-width: 160px;
+}
+
+#catgoryMenu li:hover > ul {
+    display: block;
+}
+
+#catgoryMenu li > ul li {
+    padding: 8px 12px;
+    border: 1px solid #000;
+    border-radius: 10px;
+}
 
 .page-view-input {
     padding: 8px 12px;
@@ -315,17 +390,6 @@ h1 + img {
     font-size: 1rem;
     transition: all 0.3s ease;
     background-image: url('/images/eye-fill.svg'); 
-    background-repeat: no-repeat;
-    background-position: 10px center;
-    background-size: 30px 30px;
-}
-.catagory-input {
-    padding: 8px 12px;
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    background-image: url('/images/categories.svg'); 
     background-repeat: no-repeat;
     background-position: 10px center;
     background-size: 30px 30px;

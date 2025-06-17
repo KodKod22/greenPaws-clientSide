@@ -1,3 +1,4 @@
+
 function getPageTitle() {
     const aKeyValue = window.location.search.substring(1).split('&');
     const newPageTitle = aKeyValue[0].split("=")[1];
@@ -53,10 +54,14 @@ function  initializeListPage(data) {
 
     document.getElementById("warraper").appendChild(listContiner);
 }
-
+function displayCategoryMenu() {
+    const menu = document.getElementById("catgoryMenu");
+    menu.style.display = (menu.style.display === "block") ? "none" : "block";
+}
 window.onload = () => {
     getPageTitle();
     fetch("data/locations.json")
         .then(Response => Response.json())
         .then(data => initializeListPage(data))
+    document.getElementById("catgoryButton").addEventListener("click",displayCategoryMenu);
 };
