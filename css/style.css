@@ -230,13 +230,14 @@ h1 + img {
     margin-right: 10px;
 }
 .listContiner {
-    margin-left: 100px;
+    
     margin-top: 50px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 50px;
-    justify-self: center;
+    align-items: center;
+    justify-content: center;
 }
 .listContiner a {
     display: flex;
@@ -411,9 +412,7 @@ h1 + img {
     #fillerSearchContiner {
         margin-left: 0px;
     }
-    .listContiner {
-        margin-left: 75px;
-    }
+  
    
     #toggleSidebar {
         display: block;

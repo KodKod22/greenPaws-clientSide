@@ -56,8 +56,21 @@ function  initializeListPage(data) {
 }
 function displayCategoryMenu() {
     const menu = document.getElementById("catgoryMenu");
-    menu.style.display = (menu.style.display === "block") ? "none" : "block";
+
+    if (menu.style.display === "block") {
+      
+        menu.style.display = "none"
+    }else{
+        const Container = document.getElementsByClassName("listContiner")[0];
+        let locationList = Container.getElementsByTagName("a");
+        
+        for (const location of locationList) {
+            location.style.display = "flex";
+        }
+        menu.style.display = "block"
+    }
 }
+
 function checkInputContent(value,locationCards){
         if(value.trim() === "" || value.trim().length === 0){
         for(i = 0;i < locationCards.length; i++){
@@ -66,22 +79,15 @@ function checkInputContent(value,locationCards){
         }
     }
 }
-
-function searchLocation() {
-    let inputField = document.getElementById("locationSourceBar");
-    const main = document.getElementsByClassName("listContiner")[0];
-    let locationCards = main.getElementsByTagName("a");
-
-    let value = inputField.value;
-    checkInputContent(value,locationCards);
+function changeLocationCardsDisplay(locationCards,value){
+    console.log(value);
     
-
     for (const card of locationCards) {
         
-        const city = card.getElementsByClassName("icon-city")[0].innerText;
-        const street = card.getElementsByClassName("icon-street")[0].innerText;
-        console.log(value);
-        const food = card.getElementsByClassName("icon-food")[0].innerText;
+        const city = card.getElementsByClassName("icon-city")[0].innerText.toLowerCase();
+        const street = card.getElementsByClassName("icon-street")[0].innerText.toLowerCase();
+        
+        const food = card.getElementsByClassName("icon-food")[0].innerText.toLowerCase();
         const isActive = card.querySelector(".icon-active") !== null;
         const isInactive = card.querySelector(".icon-inactive") !== null;
         
@@ -90,8 +96,22 @@ function searchLocation() {
         }else{    
             card.style.display = "none";
         }
-        
     }
+}
+function searchByCategory(value){
+    const main = document.getElementsByClassName("listContiner")[0];
+    let locationCards = main.getElementsByTagName("a");
+    changeLocationCardsDisplay(locationCards,value.innerText.toLowerCase());
+}
+function searchLocation() {
+    let inputField = document.getElementById("locationSourceBar");
+    const main = document.getElementsByClassName("listContiner")[0];
+    let locationCards = main.getElementsByTagName("a");
+
+    let value = inputField.value.toLowerCase();
+    checkInputContent(value,locationCards);
+    changeLocationCardsDisplay(locationCards,value);
+    
 }
 
 window.onload = () => {
@@ -100,5 +120,9 @@ window.onload = () => {
         .then(Response => Response.json())
         .then(data => initializeListPage(data))
     document.getElementById("catgoryButton").addEventListener("click",displayCategoryMenu);
+    document.getElementById("catgoryMenu").addEventListener("click",(event) => {
+        searchByCategory(event.target);
+    })
     document.getElementById("locationSourceBar").addEventListener("input",searchLocation);
+    
 };
