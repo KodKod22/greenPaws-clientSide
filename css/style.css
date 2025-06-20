@@ -96,6 +96,7 @@ header {
   display: flex;
   align-items: center;
   margin-right: 15px;
+  
 }
 
 .search-toggle {
@@ -308,6 +309,7 @@ h1 + img {
 }
 #catgoryButton {
     width: 194px;
+    height: 40px;
     background-color: #fff;
     border: #000 solid;
     border-radius: 10px;
@@ -344,27 +346,26 @@ h1 + img {
     border: 1px solid #000;
     display: flex;
     align-items: center;
-    gap: 17px;
+    justify-content: space-evenly;
     position: relative; 
     cursor: pointer;
-     border-radius: 10px;
-     width: 194px;
+    border-radius: 10px;
+    width: 194px;
     height: 40px;
 }
 
 .icon-arrow {
-    background-image: url('/images/arrow-left.svg'); 
+    background-image: url('/images/arrow-right.svg'); 
     background-repeat: no-repeat;
     background-size: contain;
     width: 20px;
     height: 20px;
-    margin-left: 17px;
 }
 
 #catgoryMenu li > ul {
     position: absolute;
     top: 0;
-    right: 100%; 
+    left: 100%; 
     background-color: #fff;
     list-style: none;
     padding: 0;
@@ -378,7 +379,7 @@ h1 + img {
 }
 
 #catgoryMenu li > ul li {
-    padding: 8px 12px;
+    padding: 7px 8px;
     border: 1px solid #000;
     border-radius: 10px;
 }
@@ -395,7 +396,7 @@ h1 + img {
     background-size: 30px 30px;
 }
 .searchFiller-input {
-       padding: 8px 12px;
+    padding: 8px 12px;
     border-radius: 20px;
     border: 1px solid #ccc;
     font-size: 1rem;

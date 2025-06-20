@@ -58,10 +58,47 @@ function displayCategoryMenu() {
     const menu = document.getElementById("catgoryMenu");
     menu.style.display = (menu.style.display === "block") ? "none" : "block";
 }
+function checkInputContent(value,locationCards){
+        if(value.trim() === "" || value.trim().length === 0){
+        for(i = 0;i < locationCards.length; i++){
+            
+            locationCards[i].style.display="flex";
+        }
+    }
+}
+
+function searchLocation() {
+    let inputField = document.getElementById("locationSourceBar");
+    const main = document.getElementsByClassName("listContiner")[0];
+    let locationCards = main.getElementsByTagName("a");
+
+    let value = inputField.value;
+    checkInputContent(value,locationCards);
+    
+
+    for (const card of locationCards) {
+        
+        const city = card.getElementsByClassName("icon-city")[0].innerText;
+        const street = card.getElementsByClassName("icon-street")[0].innerText;
+        console.log(value);
+        const food = card.getElementsByClassName("icon-food")[0].innerText;
+        const isActive = card.querySelector(".icon-active") !== null;
+        const isInactive = card.querySelector(".icon-inactive") !== null;
+        
+        if (city.includes(value) || street.includes(value) || food.includes(value) || (value === "active" && isActive) || (value === "inactive" && isInactive)) {
+            card.style.display = "flex";
+        }else{    
+            card.style.display = "none";
+        }
+        
+    }
+}
+
 window.onload = () => {
     getPageTitle();
     fetch("data/locations.json")
         .then(Response => Response.json())
         .then(data => initializeListPage(data))
     document.getElementById("catgoryButton").addEventListener("click",displayCategoryMenu);
+    document.getElementById("locationSourceBar").addEventListener("input",searchLocation);
 };
