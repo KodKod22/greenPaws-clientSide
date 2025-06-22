@@ -23,7 +23,10 @@ main {
     width: 100%;
     max-width: 100%;
 }
-
+ul {
+    list-style: none;
+    text-align: left;
+}
 #warraper {
     display: flex;
     flex-direction: column;
@@ -36,13 +39,21 @@ nav.flex-column.nav-pills a span {
     margin-left:32px ;
     
 }
+
+.nav-link:focus, .nav-link:hover {
+    color: #000000;
+}
 nav.flex-column.nav-pills a svg {
     color: #000000;
 }
-nav.flex-column.nav-pills .nav-link.active {
+nav.flex-column.nav-pills .nav-link.active, .nav-pills .nav-link.active{
     background-color:#D3D3D3 ;
+    color: #000000;
 }
- 
+
+ .nav-link {
+    color: #000000;
+ }
 nav.flex-column.nav-pills a:hover {
     background-color: #fff;
 }
@@ -237,7 +248,7 @@ h1 + img {
     flex-wrap: wrap;
     gap: 50px;
     align-items: center;
-    justify-content: center;
+    margin-left: 50px;
 }
 .listContiner a {
     display: flex;
@@ -408,12 +419,18 @@ h1 + img {
     background-size: 30px 30px;
     padding-left: 40px;
 }
+.highlighted {
+    background-color:#D3D3D3 ;
+}
 @media (min-width: 360px) and (max-width: 992px) {
     #fillerSearchContiner {
         margin-left: 0px;
     }
   
-   
+   .listContiner {
+    margin-left: 0px;
+    justify-content: center;
+   }
     #toggleSidebar {
         display: block;
         align-self: center; 
@@ -512,7 +529,6 @@ h1 + img {
     }
 }
 
-
 @media (min-width: 360px) and (max-width: 767px) { 
     #logo {
         height: 60px;
@@ -534,6 +550,7 @@ h1 + img {
         flex-direction: column;
         margin-left: 0px;
     }
+  
 }
 
 
