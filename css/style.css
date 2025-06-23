@@ -255,7 +255,7 @@ h1 + img {
     flex-direction: column;
     text-align:start;
     width: 200px;
-    height: 130px;
+    height: 170px;
     background-color: #FAFAFA;
     border: solid #000000;
     border-radius: 20px;
@@ -270,7 +270,20 @@ h1 + img {
 .listContiner a span:first-of-type {
     display: none;
 }
-
+.icon-level {
+    background-image: url("/images/level.svg");
+    width: 31px;
+    height: 31px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.icon-id {
+    background-image: url("/images/id.svg");
+    width: 31px;
+    height: 31px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
 .icon-city {
     background-image: url("/images/city.svg");
     width: 31px;
@@ -373,7 +386,20 @@ h1 + img {
     width: 20px;
     height: 20px;
 }
-
+.icon-addBottles {
+    background-image: url('/images/addBottels.svg'); 
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+}
+.icon-report {
+    background-image: url('/images/report.svg'); 
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 20px;
+    height: 20px;   
+}
 #catgoryMenu li > ul {
     position: absolute;
     top: 0;
@@ -421,6 +447,47 @@ h1 + img {
 }
 .highlighted {
     background-color:#D3D3D3 ;
+}
+.mainPageContainer {
+    display: flex;
+    flex-direction: row;
+}
+.locationDataContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    text-align: left;
+    margin-left: 25px;
+    border: #000 solid;
+    background-color:#FAFAFA;
+    font-size: 32px;
+    border-radius: 20px;
+    width: 516px;
+    height: 365px;
+    
+}
+.locationDataContainer span {
+    width: 100%;
+    padding-left: 70px;
+    padding-top: 15px;
+    height: 100%;
+}
+.buttonsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 65px;
+    margin-top: 110px;
+    margin-bottom: 90px;
+    margin-left: 75px;
+}
+.buttonsContainer button {
+    width: 400px;
+    height: 70px;
+    font-size: 36px;
+    border-radius: 20px;
+}
+.buttonsContainer button:first-of-type {
+    background-color:  #A8D5BA;;
 }
 @media (min-width: 360px) and (max-width: 992px) {
     #fillerSearchContiner {
