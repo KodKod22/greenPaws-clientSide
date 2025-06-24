@@ -27,8 +27,14 @@ function setUserInterface(){
     const reportBottlesBt = document.createElement("button");
     addBottlesBt.textContent = "Add bottles"
     addBottlesBt.classList.add("icon-addBottles");
+    addBottlesBt.setAttribute("data-bs-toggle","modal");
+    addBottlesBt.setAttribute("data-bs-target","#addBottelsModal")
+
     reportBottlesBt.textContent = "report"
     reportBottlesBt.classList.add("icon-report");
+    reportBottlesBt.setAttribute("data-bs-toggle","modal");
+    reportBottlesBt.setAttribute("data-bs-target","#reportModal");
+    
 
     buttonsContainer.appendChild(addBottlesBt);
     buttonsContainer.appendChild(reportBottlesBt);

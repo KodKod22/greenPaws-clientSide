@@ -77,7 +77,61 @@
                     <li class="breadcrumb-item active"><a href="listPage.html?pageTitle=Locations">Locations</a></li>
                 </ol>
             </nav>
+            <div class="modal" id="addBottelsModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add bottles</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Enter the total number of bottles</p>
+                            <label for="fname">Number of bottles:</label>
+                            <input type="text" id="fname" name="fname">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-bs-dismiss="modal">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal" id="reportModal" tabindex="-1">
+                <div class="modal-dialog ">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Report</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Select the topic you would like to report</p>
 
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+                                <label class="form-check-label" for="exampleRadios1">
+                                    The recycling container is full of bottles.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                <label class="form-check-label" for="exampleRadios2">
+                                    The area around the recycling bin is dirty.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+                                <label class="form-check-label" for="exampleRadios3">
+                                    There is no food in the recycling bin.
+                                </label>
+                            </div>
+                            <label for="other">other:</label>
+                            <input type="text" id="other" name="other">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn" data-bs-dismiss="modal">Report</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
     <script src="js/resposvieHandler.js"></script>

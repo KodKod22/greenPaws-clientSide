@@ -248,7 +248,7 @@ h1 + img {
     flex-wrap: wrap;
     gap: 50px;
     align-items: center;
-    margin-left: 50px;
+    justify-content: center;
 }
 .listContiner a {
     display: flex;
@@ -323,7 +323,7 @@ h1 + img {
     display: flex;
     align-items: center;
     gap: 50px;
-    margin-left: 250px;
+    justify-content: center;
 }
 #fillerSearchContiner > button {
     width: 194px;
@@ -464,7 +464,6 @@ h1 + img {
     border-radius: 20px;
     width: 516px;
     height: 365px;
-    
 }
 .locationDataContainer span {
     width: 100%;
@@ -490,6 +489,13 @@ h1 + img {
     background-color:  #A8D5BA;;
 }
 @media (min-width: 360px) and (max-width: 992px) {
+    
+  
+   
+    .locationDataContainer span {
+        font-size: 24px;
+       
+    }
     #fillerSearchContiner {
         margin-left: 0px;
     }
@@ -607,7 +613,7 @@ h1 + img {
         font-size: 14px;
     }
     #warraper h1 {
-        font-size: 16px;
+        font-size: 24px;
         margin-top: 0px;
     }
     #userNavContainer {
@@ -617,7 +623,21 @@ h1 + img {
         flex-direction: column;
         margin-left: 0px;
     }
-  
+     .locationDataContainer {
+        width: 250px;
+    }
+      .buttonsContainer {
+        margin-top: 20px;
+        margin-bottom: 0px;
+        margin-left: 25px;
+    }
+
+    .buttonsContainer button {
+        width: 250px;
+        height: 70px;
+        font-size: 24px;
+        padding-left:20px ;
+    }
 }
 
 
@@ -629,4 +649,5 @@ h1 + img {
     #userNavContainer {
         flex-direction: row; 
     }
+    
 }
