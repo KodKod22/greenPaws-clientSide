@@ -38,10 +38,11 @@ function setUserInterface(){
 
     buttonsContainer.appendChild(addBottlesBt);
     buttonsContainer.appendChild(reportBottlesBt);
-    document.getElementById("warraper").appendChild(buttonsContainer);
+    return buttonsContainer;
 }
 function createLocationDataContainer(product) {
     const locationDataContainer = document.createElement("section");
+    const locationDataAndButtons = document.createElement("section");
     locationDataContainer.classList.add("locationDataContainer");
 
     for (const key in product) {
@@ -81,8 +82,22 @@ function createLocationDataContainer(product) {
         }
         locationDataContainer.appendChild(dataLine);
     }
+    locationDataAndButtons.appendChild(locationDataContainer);
+    locationDataContainer.appendChild(setUserInterface());
+    return locationDataAndButtons;
+}
+function createMap(landmarks){
+
+   const map = L.map('objectMap').setView([landmarks.longitude,landmarks.latitude], 20); 
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+   L.marker([landmarks.longitude,landmarks.latitude])
+    .addTo(map)
     
-    return locationDataContainer
+    return map;
 }
 function setLocationData(product) {
     
@@ -91,9 +106,15 @@ function setLocationData(product) {
     const mainPageContainer = document.createElement("section");
     mainPageContainer.classList.add("mainPageContainer");
     mainPageContainer.appendChild(createLocationDataContainer(product));
+    const mapSection = document.createElement("section");
+    mapSection.id = "objectMap";
+    
+    mainPageContainer.appendChild(mapSection);
 
     document.getElementById("warraper").appendChild(pageHeadLine);
     document.getElementById("warraper").appendChild(mainPageContainer);
+
+    createMap(product.Landmarks);
 }
 function loadPageObject(data) {
     let locationId = getObjectId();
@@ -104,7 +125,7 @@ function loadPageObject(data) {
             break;
         }    
     }
-    setUserInterface()
+    
 }
 window.onload = () => {
     fetch("data/locations.json")
