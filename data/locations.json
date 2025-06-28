@@ -7,7 +7,11 @@
             "street": "Ahuza",
             "food":"cat food",
             "status":"active",
-            "level":"50%"
+            "level":"50%",
+            "Landmarks":{
+                "longitude":"32.18151936485853",
+                "latitude":"34.87109320982009"
+            }
         },  
         {  
             "id": "2",   
@@ -15,7 +19,11 @@
             "street": "HaBrosh",
             "food":"cat and dog food",
             "status":"inactive",
-            "level":"50%"  
+            "level":"50%",
+            "Landmarks":{
+                "longitude":"32.1903356481452",
+                "latitude":"34.85700056879083"
+            }  
         },  
         {  
             "id": "3",   
@@ -23,7 +31,11 @@
             "street": "Bialik",
             "food":"dog food",
             "status":"inactive",
-            "level":"50%"
+            "level":"50%",
+            "Landmarks":{
+                "longitude":"32.17730686894232",
+                "latitude":"34.87991173255838"
+            }
         },
         {  
             "id": "4", 
@@ -31,7 +43,11 @@
             "street": "Geula",
             "food":"dog food",
             "status":"active",
-            "level":"50%"
+            "level":"50%",
+            "Landmarks":{
+                "longitude":"32.194448583108304",
+                "latitude":"34.85651112276391"
+            }
         },  
         {  
             "id": "5",   
@@ -39,7 +55,11 @@
             "street": "David Elazar",
             "food":"dog food",
             "status":"active" ,
-            "level":"50%"
+            "level":"50%",
+            "Landmarks":{
+                "longitude":"32.18145526232124",
+                "latitude":"34.88701045529714"
+            }
         },  
         {  
             "id": "6",   
@@ -47,7 +67,11 @@
             "street": "Einstein",
             "food":"cat food",
             "status":"inactive",
-            "level":"50%"  
+            "level":"50%",
+            "Landmarks":{
+                "longitude":"32.18455809692513",
+                "latitude":"34.883906557146126"
+            }  
         } 
     ]  
 }

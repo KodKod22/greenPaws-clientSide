@@ -1,4 +1,5 @@
-
+let map;
+const pendingMarkers = [];
 function getPageTitle() {
     const aKeyValue = window.location.search.substring(1).split('&');
     const newPageTitle = aKeyValue[0].split("=")[1];
@@ -24,8 +25,11 @@ function createLocationCard(product) {
 
     for (const key in product) {
         const cardData = document.createElement("span");
-
-        if (product[key] == "active")
+        if (key === "Landmarks") {
+            addLocationToMap(product[key].longitude,product[key].latitude,product);
+            
+        }else{
+            if (product[key] == "active")
             {
                 cardData.classList.add("icon-active");
                 cardData.style.color = "#38AD2E"
@@ -37,9 +41,11 @@ function createLocationCard(product) {
                 cardData.classList.add(`icon-${key.toLowerCase()}`);
             }
         
-        cardData.innerText = product[key];
+            cardData.innerText = product[key];
 
-        locationCard.appendChild(cardData);
+            locationCard.appendChild(cardData);
+        } 
+        
     }
 
     return ulFrag;
@@ -122,9 +128,64 @@ function searchLocation() {
     changeLocationCardsDisplay(locationCards,value);
     
 }
+function addLocationToMap(lat, lng, product) {
+    if (!map) {
+        pendingMarkers.push({ lat, lng, product });
+        return;
+    }
+    const {
+        id,
+        city,
+        street,
+        food,
+        status,
+        level
+    } = product;
+  const popupContent = `
+    <a href="objectPage.html?locationId=${id}" style="color: black; text-decoration: none;">
+        <strong>${city}, ${street}</strong><br/>
+        <span><b>Food:</b> ${food}</span><br/>
+        <span><b>Status:</b> <span style="color:${status === 'active' ? 'green' : 'red'}">${status}</span></span><br/>
+        <span><b>Food level:</b> ${level}</span>
+    </a>`;
 
+  L.marker([lat, lng])
+    .addTo(map)
+    .bindPopup(popupContent)
+}
+function createMap(){
+    if (map) return;
+    map = L.map('map').setView([32.19261402429747, 34.87351857279742], 14); 
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+   pendingMarkers.forEach(m => addLocationToMap(m.lat, m.lng, m.product));
+}
+function changePageView(){
+    const main = document.getElementsByClassName("listContiner")[0];
+    const viewButton = document.getElementsByClassName("page-view-input")[0];
+    const map = document.getElementById("map");
+    
+    if(main.style.display === "none"){
+        viewButton.classList.remove("icon-list");
+        viewButton.classList.add("icon-map");
+        viewButton.innerText = "map view"
+        main.style.display = "flex";
+        map.style.display = "none";
+    }else{
+        viewButton.classList.remove("icon-map");
+        viewButton.classList.add("icon-list");
+        viewButton.innerText = "list view"
+        main.style.display = "none";
+        map.style.display = "block";
+        createMap()
+    }
+}
 window.onload = () => {
     getPageTitle();
+    
     fetch("data/locations.json")
         .then(Response => Response.json())
         .then(data => initializeListPage(data))
@@ -150,12 +211,15 @@ window.onload = () => {
             }
         });
     });
-   
+    document.getElementsByClassName("btn-close")[0].addEventListener("click",()=> {
+        document.activeElement.blur();
+    })
     document.getElementById("closeButton").addEventListener("click",() => {
         const userChoice = localStorage.getItem("userChoice");
         const modalInstance = bootstrap.Modal.getInstance(modalElement);
         if (modalInstance) {
             modalInstance.hide();
+            document.activeElement.blur();
         }
         if(userChoice === null){
             return;
@@ -175,7 +239,9 @@ window.onload = () => {
         document.body.style.removeProperty('padding-right');
 
     });
-
+    document.getElementsByClassName("page-view-input")[0].addEventListener("click",()=>{
+        changePageView();
+    })
     
 };
 let wasSmallScreen = window.innerWidth <= 768;
@@ -211,6 +277,7 @@ window.addEventListener("resize", () => {
     
         if (modalInstance._isShown) {
             modalInstance.hide();
+            document.activeElement.blur();
         }
 
         document.querySelectorAll('.modal-backdrop').forEach(b => b.remove());

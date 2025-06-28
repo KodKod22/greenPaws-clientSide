@@ -248,7 +248,7 @@ h1 + img {
     flex-wrap: wrap;
     gap: 50px;
     align-items: center;
-    justify-content: center;
+    margin-left: 118px;
 }
 .listContiner a {
     display: flex;
@@ -323,7 +323,7 @@ h1 + img {
     display: flex;
     align-items: center;
     gap: 50px;
-    justify-content: center;
+    margin-left: 118px;
 }
 #fillerSearchContiner > button {
     width: 194px;
@@ -421,17 +421,24 @@ h1 + img {
     border: 1px solid #000;
     border-radius: 10px;
 }
-
+.icon-list {
+    background-image: url('/images/list-ul.svg'); 
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-size: 30px 30px;
+}
+.icon-map {
+    background-image: url('/images/map.svg'); 
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-size: 30px 30px;
+}
 .page-view-input {
     padding: 8px 12px;
     border-radius: 20px;
     border: 1px solid #ccc;
     font-size: 1rem;
     transition: all 0.3s ease;
-    background-image: url('/images/eye-fill.svg'); 
-    background-repeat: no-repeat;
-    background-position: 10px center;
-    background-size: 30px 30px;
 }
 .searchFiller-input {
     padding: 8px 12px;
@@ -487,6 +494,15 @@ h1 + img {
 }
 .buttonsContainer button:first-of-type {
     background-color:  #A8D5BA;;
+}
+#map {
+    display: none;
+    width: 1100px;
+    height: 628px;
+    margin-left: 118px;
+    border-radius: 20px;
+    margin-top: 69px;
+    margin-bottom: 123px;
 }
 @media (min-width: 360px) and (max-width: 992px) {
     
