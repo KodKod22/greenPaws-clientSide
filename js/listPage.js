@@ -185,65 +185,59 @@ function changePageView(){
 }
 window.onload = () => {
     getPageTitle();
-    
     fetch("data/locations.json")
-        .then(Response => Response.json())
-        .then(data => initializeListPage(data))
-    document.getElementById("catgoryButton").addEventListener("click",(event) => {
-        
-        displayCategoryMenu(event.target);
-    });
-    document.querySelectorAll(".subMenu").forEach(btn => {
-        btn.addEventListener("click", (event) => {
-            searchByCategory(event.target.innerText.toLowerCase());
-        });
-    });
-    document.getElementById("locationSourceBar").addEventListener("input",searchLocation);
-    
-    const clickableSpans = document.querySelectorAll(".clickableSpan");
-    clickableSpans.forEach(span => {
-        span.addEventListener('click', function() {
+        .then(res => res.json())
+        .then(initializeListPage)
+        .catch(err => console.error("Error loading locations:", err));
 
+    setupEventListeners();
+};
+
+function setupEventListeners() {
+    const modalElement = document.getElementById("exampleModal");
+    const closeButton = document.getElementById("closeButton");
+    const categoryButton = document.getElementById("catgoryButton");
+    const searchBar = document.getElementById("locationSourceBar");
+    const closeModalBtn = document.getElementsByClassName("btn-close")[0];
+    const viewInput = document.getElementsByClassName("page-view-input")[0];
+    const clickableSpans = document.querySelectorAll(".clickableSpan");
+    
+    categoryButton.addEventListener("click", e => displayCategoryMenu(e.target));
+    searchBar.addEventListener("input", searchLocation);
+    viewInput.addEventListener("click", changePageView);
+    
+    document.querySelectorAll(".subMenu").forEach(btn =>
+        btn.addEventListener("click", e => searchByCategory(e.target.innerText.toLowerCase()))
+    );
+
+    clickableSpans.forEach(span => {
+        span.addEventListener("click", () => {
             clickableSpans.forEach(s => s.classList.remove("highlighted"));
-            this.classList.toggle("highlighted");
-            if (this.classList.contains('highlighted')) {
-                localStorage.setItem("userChoice",this.innerText);
+            span.classList.toggle("highlighted");
+            if (span.classList.contains("highlighted")) {
+                localStorage.setItem("userChoice", span.innerText);
             }
         });
     });
-    document.getElementsByClassName("btn-close")[0].addEventListener("click",()=> {
-        document.activeElement.blur();
-    })
-    document.getElementById("closeButton").addEventListener("click",() => {
+
+    closeModalBtn.addEventListener("click", () => document.activeElement.blur());
+
+    closeButton.addEventListener("click", () => {
         const userChoice = localStorage.getItem("userChoice");
         const modalInstance = bootstrap.Modal.getInstance(modalElement);
-        if (modalInstance) {
-            modalInstance.hide();
-            document.activeElement.blur();
-        }
-        if(userChoice === null){
-            return;
-        }
-        searchByCategory(userChoice.toLowerCase());
-    })
-
-    const modalElement = document.getElementById("exampleModal");
-
-    modalElement.addEventListener('hidden.bs.modal', () => {
-        
-        const backdrops = document.querySelectorAll('.modal-backdrop');
-        backdrops.forEach(b => b.remove());
-
-        document.body.classList.remove('modal-open');
-        document.body.style.removeProperty('overflow');
-        document.body.style.removeProperty('padding-right');
-
+        if (modalInstance) modalInstance.hide();
+        document.activeElement.blur();
+        if (userChoice) searchByCategory(userChoice.toLowerCase());
     });
-    document.getElementsByClassName("page-view-input")[0].addEventListener("click",()=>{
-        changePageView();
-    })
-    
-};
+
+    modalElement.addEventListener("hidden.bs.modal", () => {
+        document.querySelectorAll(".modal-backdrop").forEach(b => b.remove());
+        document.body.classList.remove("modal-open");
+        document.body.style.removeProperty("overflow");
+        document.body.style.removeProperty("padding-right");
+    });
+}
+
 let wasSmallScreen = window.innerWidth <= 768;
 
 let isMenuOpenManually = false;

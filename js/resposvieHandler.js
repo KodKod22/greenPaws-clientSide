@@ -1,12 +1,13 @@
-   document.addEventListener("DOMContentLoaded", function () {
+   function setupSidebar(){
         const toggleBtn = document.querySelectorAll(".search-toggle")[0];
         const searchBox = document.querySelectorAll(".search-container")[0];
 
         toggleBtn.addEventListener("click", function () {
             searchBox.classList.toggle("active");
         });
-    });
-    document.addEventListener("DOMContentLoaded",function(){
+   }
+   
+   function  setupSearchToggle() {
         const sidebar = document.getElementById("asideBar");
         const toggleSidebar = document.getElementById("toggleSidebar");
         const toggleIcon = document.getElementById('toggleIcon');
@@ -22,6 +23,23 @@
                 }   
             }
         });
-    });
-
+   }   
+function setUserProfile(){
+      const userData = JSON.parse(sessionStorage.getItem('userData'));
+        console.log('Loaded user data:', userData); 
+        if (userData && userData.profile) {
+            const profilePic = document.querySelector('.profilePlaceHolder img');
+            profilePic.src = userData.profile; 
+            const profileUserName = document.querySelector('.profilePlaceHolder span');
+            profileUserName.innerText = userData.userName;
+            console.log('Profile picture updated to:', userData.profile);
+        } else {
+            console.error('No profile image found or userData is not set.'); 
+        }
+}
+document.addEventListener("DOMContentLoaded", () => {
+    setupSidebar();
+    setupSearchToggle();
+    setUserProfile();
+});
     

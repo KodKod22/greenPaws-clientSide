@@ -53,7 +53,6 @@ function initializeHomePage() {
     warraper.appendChild(dogAndCatImg);
     warraper.appendChild(userNavContainer);
 }
-
 window.onload = () => {
     initializeHomePage();
 };

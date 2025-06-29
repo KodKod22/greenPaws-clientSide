@@ -42,11 +42,11 @@ function setUserInterface(){
 }
 function createLocationDataContainer(product) {
     const locationDataContainer = document.createElement("section");
-    const locationDataAndButtons = document.createElement("section");
+    
     locationDataContainer.classList.add("locationDataContainer");
 
     for (const key in product) {
-        if (key === "city") {
+        if (key === "city" || key === "Landmarks") {
             continue;
         }
         let dataLine = document.createElement("span");
@@ -82,9 +82,8 @@ function createLocationDataContainer(product) {
         }
         locationDataContainer.appendChild(dataLine);
     }
-    locationDataAndButtons.appendChild(locationDataContainer);
     locationDataContainer.appendChild(setUserInterface());
-    return locationDataAndButtons;
+    return locationDataContainer;
 }
 function createMap(landmarks){
 

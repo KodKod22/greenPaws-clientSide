@@ -1,0 +1,20 @@
+{ 
+    "category": "Users",  
+    "users": [  
+        {  
+            "id": "1", 
+            "userName": "Alex Smith",  
+            "userPassword": "1234",
+            "userProfile":"images/portrait-of-an-indian-young.jpg",
+            "userType":"user"
+        },  
+        {  
+            "id": "2", 
+            "userName": "Noa Nachmani",  
+            "userPassword": "9876",
+            "userProfile":"images/femaleEmployee",
+            "userType":"admin"
+        } 
+        
+    ]  
+}
