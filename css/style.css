@@ -51,9 +51,24 @@ nav.flex-column.nav-pills .nav-link.active, .nav-pills .nav-link.active{
     color: #000000;
 }
 
- .nav-link {
-    color: #000000;
- }
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px; 
+  padding: 12px 20px;
+}
+
+.nav-link svg {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.nav-link span {
+  font-size: 16px;
+  margin: 0;
+}
+
 nav.flex-column.nav-pills a:hover {
     background-color: #fff;
 }
@@ -537,8 +552,81 @@ h1 + img {
 .row a:hover {
     color: #000;
 }
+.chartCard {
+    width: 85%;
+    height: calc(100vh - 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 100px; 
+    margin-right: 100px;
+    padding: 15px;
+    box-sizing: border-box;
+    max-width: 1600px;
+    min-height: 300px;
+}
+
+.chart-wrapper {
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+    border: 3px solid black;
+    min-height: 280px;
+    min-width: 280px;
+    position: relative;
+}
+
+#myChart {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+@media (min-width: 1000px) and (max-width: 1400px) {
+    .chartCard {
+        
+        margin-right: auto;
+        height: 80vh; 
+        max-height: 700px;
+        max-width: 1200px;
+        min-width: 737px; 
+        min-height: 500px; 
+        padding: 20px; 
+    }
+}
+@media (max-width: 999px) {
+    .chartCard {
+        margin-left: auto;
+        margin-right: 40px;
+        width: 95%; 
+        height: 75vh; 
+        max-height: 550px; 
+        padding: 10px;
+        min-width: 450px; 
+        min-height: 350px; 
+    }
+    .chart-wrapper {
+        min-height: 330px; 
+        min-width: 430px; 
+    }
+}
+@media (max-width: 767px) {
+    .chartCard {
+        width: 98%;
+        height: 60vh;
+        max-height: 350px; 
+        padding: 5px;
+        min-width: 280px;
+        min-height: 250px; 
+    }
+    .chart-wrapper {
+        border-width: 1px;
+        min-height: 240px; 
+        min-width: 270px;
+    }
+}
 @media (min-width: 360px) and (max-width: 992px) {
-    
+ 
     #objectMap {
         display: none;
     }
@@ -654,6 +742,8 @@ h1 + img {
 }
 
 @media (min-width: 360px) and (max-width: 767px) { 
+    
+    
       #map {
         width: 200px;
         height: 70vh;
@@ -698,6 +788,7 @@ h1 + img {
 
 
 @media (min-width: 768px) and (max-width: 992px) {
+       
     #warraper h1 {
         font-size: 42px;
         margin-top: 0px;
@@ -712,6 +803,7 @@ h1 + img {
     }
 }
  @media (min-width: 1000px) and (max-width: 1400px){
+ 
      #map {
         margin-left: 20px;
     }

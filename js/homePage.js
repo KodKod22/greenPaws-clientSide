@@ -6,7 +6,7 @@ function userNavContainerCreator() {
     const locationsLink = document.createElement("a");
     locationsLink.href = `listPage.html?pageTitle=Locations`;
     const activityLink = document.createElement("a");
-    activityLink.href = "#";
+    activityLink.href = `graphPage.html?pageTitle=activity`;
 
     const reportsTitle = document.createElement("span");
     reportsTitle.innerText = "reports";
