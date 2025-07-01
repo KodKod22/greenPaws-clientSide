@@ -584,7 +584,6 @@ h1 + img {
 
 @media (min-width: 1000px) and (max-width: 1400px) {
     .chartCard {
-        
         margin-right: auto;
         height: 80vh; 
         max-height: 700px;
