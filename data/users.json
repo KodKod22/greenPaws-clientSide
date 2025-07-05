@@ -12,7 +12,7 @@
             "id": "2", 
             "userName": "Noa Nachmani",  
             "userPassword": "9876",
-            "userProfile":"images/femaleEmployee",
+            "userProfile":"images/femaleEmployee.jpg",
             "userType":"admin"
         } 
         

@@ -1,13 +1,13 @@
 function setPageTitle(product){
     let oldPageTitle = document.getElementsByClassName("breadcrumb")[0];
-    oldPageTitle.children[0].innerText = product.street + " st " + product.city;
+    oldPageTitle.children[0].innerText = product.street + " st " + product.cityname;
 
     let pageRoadTrial = document.getElementsByClassName("breadcrumb")[1];
     let pagePosition = document.createElement("li");
     pagePosition.classList.add("breadcrumb-item", "active");
     let pagePositionTitle = document.createElement("a");
     pagePositionTitle.href = "listPage.html?pageTitle=Locations";
-    pagePositionTitle.innerText = product.street + " st " + product.city;
+    pagePositionTitle.innerText = product.street + " st " + product.cityname;
 
     pagePosition.appendChild(pagePositionTitle);
     pageRoadTrial.appendChild(pagePosition);
@@ -46,22 +46,22 @@ function createLocationDataContainer(product) {
     locationDataContainer.classList.add("locationDataContainer");
 
     for (const key in product) {
-        if (key === "city" || key === "Landmarks") {
+        if (key === "cityname" || key === "landmarks") {
             continue;
         }
         let dataLine = document.createElement("span");
         switch (key) {
-            case "id":
+            case "locationsid":
               dataLine.innerText = "container id: " + product[key];
-              dataLine.classList.add("icon-id");
+              dataLine.classList.add("icon-locationsid");
             break;
             case "street":
-                dataLine.innerText = product[key] + " street " + product["city"];
+                dataLine.innerText = product[key] + " street " + product["cityname"];
                 dataLine.classList.add("icon-street");
             break;
-            case "food":
+            case "animelfood":
                 dataLine.innerText = product[key];
-                dataLine.classList.add("icon-food");
+                dataLine.classList.add("icon-animelfood");
             break;
             case "status":
                 dataLine.innerText = product[key];
@@ -75,9 +75,9 @@ function createLocationDataContainer(product) {
                     dataLine.style.color = "#FF0000";
                 }
             break;
-            case "level":
-                dataLine.innerText = "food level: " + product[key];
-                dataLine.classList.add("icon-level");
+            case "foodcapacity":
+                dataLine.innerText = "food level: " + product[key]+"%";
+                dataLine.classList.add("icon-foodcapacity");
             break;
         }
         locationDataContainer.appendChild(dataLine);
@@ -85,21 +85,21 @@ function createLocationDataContainer(product) {
     locationDataContainer.appendChild(setUserInterface());
     return locationDataContainer;
 }
-function createMap(landmarks){
+function createMap(landmarks) {
+    const [lat, lng] = landmarks.split(',').map(Number);
 
-   const map = L.map('objectMap').setView([landmarks.longitude,landmarks.latitude], 20); 
+    const map = L.map('objectMap').setView([lat, lng], 20);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors'
+        attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-   L.marker([landmarks.longitude,landmarks.latitude])
-    .addTo(map)
-    
+    L.marker([lat, lng]).addTo(map);
+
     return map;
 }
 function setLocationData(product) {
-    
+    console.log(product);
     const pageHeadLine = document.createElement("h1");
     pageHeadLine.innerText = product.street + " street"
     const mainPageContainer = document.createElement("section");
@@ -112,23 +112,53 @@ function setLocationData(product) {
 
     document.getElementById("warraper").appendChild(pageHeadLine);
     document.getElementById("warraper").appendChild(mainPageContainer);
-
-    createMap(product.Landmarks);
-}
-function loadPageObject(data) {
-    let locationId = getObjectId();
-    for (const product of data.products) {
-        if (product.id == locationId ) {
-            setPageTitle(product);
-            setLocationData(product);
-            break;
-        }    
-    }
     
+    createMap(product.landmarks);
+}
+function loadPageObject() {
+    let locationId = getObjectId();
+    fetch(`http://localhost:8081/api/locations/${locationId}`)
+        .then(Response => Response.json())
+        .then(data => {
+            const location = data[0];
+            setPageTitle(location);
+            setLocationData(location);
+        })
+}
+function sendToServerNumBottles(){
+    const bottlesValue = document.getElementById("bottles").value;
+    const locationIdText = document.querySelector(".icon-locationsid").innerText;
+    const locationId = locationIdText.split(":")[1].trim();
+     const userData = JSON.parse(sessionStorage.getItem('userData'));
+    const userId = userData.userId;
+    fetch("http://localhost:8081/api/locations/addBottles",{
+        method:"POST",
+        headers:{
+            "Content-Type": "application/json"
+        },
+        body:JSON.stringify({
+            userID:userId,
+            locationId:locationId, 
+            bottleCount:bottlesValue
+        })
+    })
+     .then(async response => {
+        if (!response.ok) {
+            const err = await response.json();
+            throw new Error(err.message);
+        }
+        return response.json();
+    })
+    .then(data => {
+        alert("Number of bottles added successfully!");
+        location.reload();
+    })
+    .catch(error => {
+        console.error("Error:", error.message);
+        alert("Failed to add bottles: " + error.message);
+    });
 }
 window.onload = () => {
-    fetch("data/locations.json")
-        .then(Response => Response.json())
-        .then(data => loadPageObject(data))
-   
+    loadPageObject();
+    document.getElementById("addBottelsBtn").addEventListener("click",sendToServerNumBottles)
 }

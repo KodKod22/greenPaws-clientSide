@@ -20,14 +20,15 @@ function getPageTitle() {
 function createLocationCard(product) {
     const ulFrag = document.createDocumentFragment();
     const locationCard = document.createElement("a");
-    locationCard.href = `objectPage.html?locationId=${product.id}`;
+    locationCard.href = `objectPage.html?locationId=${product.locationsid}`;
     ulFrag.appendChild(locationCard);
 
     for (const key in product) {
         const cardData = document.createElement("span");
-        if (key === "Landmarks") {
-            addLocationToMap(product[key].longitude,product[key].latitude,product);
-            
+        if (key === "landmarks") {
+            const [lat, lng] = product[key].split(',').map(Number);
+            addLocationToMap(lat, lng, product);
+            continue;
         }else{
             if (product[key] == "active")
             {
@@ -40,9 +41,10 @@ function createLocationCard(product) {
             }else{
                 cardData.classList.add(`icon-${key.toLowerCase()}`);
             }
-        
             cardData.innerText = product[key];
-
+            if (key == "foodcapacity") {
+                cardData.innerText = product[key] +"%";
+            }
             locationCard.appendChild(cardData);
         } 
         
@@ -51,9 +53,10 @@ function createLocationCard(product) {
     return ulFrag;
 }
 function  initializeListPage(data) {
+    console.log(data);
     const listContiner = document.getElementsByClassName("listContiner")[0];
 
-    for (const product of data.products) {
+    for (const product of data) {
         const locationCard = createLocationCard(product);
         listContiner.appendChild(locationCard);
     }
@@ -99,10 +102,10 @@ function changeLocationCardsDisplay(locationCards,value){
     
     for (const card of locationCards) {
         
-        const city = card.getElementsByClassName("icon-city")[0].innerText.toLowerCase();
+        const city = card.getElementsByClassName("icon-cityname")[0].innerText.toLowerCase();
         const street = card.getElementsByClassName("icon-street")[0].innerText.toLowerCase();
         
-        const food = card.getElementsByClassName("icon-food")[0].innerText.toLowerCase();
+        const food = card.getElementsByClassName("icon-animelfood")[0].innerText.toLowerCase();
         const isActive = card.querySelector(".icon-active") !== null;
         const isInactive = card.querySelector(".icon-inactive") !== null;
         
@@ -183,13 +186,18 @@ function changePageView(){
         createMap()
     }
 }
+
+function getCardsDataFromServer(){
+    fetch("http://localhost:8081/api/locations/Locations")
+        .then(Response => Response.json())
+        .then(data => initializeListPage(data))
+        .catch(error => {
+            console.error("Fetch error:", error);
+        });
+}
 window.onload = () => {
     getPageTitle();
-    fetch("data/locations.json")
-        .then(res => res.json())
-        .then(initializeListPage)
-        .catch(err => console.error("Error loading locations:", err));
-
+    getCardsDataFromServer();
     setupEventListeners();
 };
 

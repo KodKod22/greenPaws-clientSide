@@ -285,7 +285,7 @@ h1 + img {
 .listContiner a span:first-of-type {
     display: none;
 }
-.icon-level {
+.icon-foodcapacity {
     background-image: url("/images/level.svg");
     width: 31px;
     height: 31px;
@@ -304,14 +304,14 @@ h1 + img {
     margin-left: 20px;
     margin-top: 20px;
 }
-.icon-id {
+.icon-locationsid {
     background-image: url("/images/id.svg");
     width: 31px;
     height: 31px;
     background-repeat: no-repeat;
     background-size: contain;
 }
-.icon-city {
+.icon-cityname {
     background-image: url("/images/city.svg");
     width: 31px;
     height: 31px;
@@ -325,7 +325,7 @@ h1 + img {
     background-repeat: no-repeat;
     background-size: contain;
 }
-.icon-food {
+.icon-animelfood {
     background-image: url("/images/food.svg");
     width: 31px;
     height: 31px;

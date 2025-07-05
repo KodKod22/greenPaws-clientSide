@@ -27,12 +27,12 @@
 function setUserProfile(){
       const userData = JSON.parse(sessionStorage.getItem('userData'));
         console.log('Loaded user data:', userData); 
-        if (userData && userData.profile) {
+        if (userData && userData.userImag) {
             const profilePic = document.querySelector('.profilePlaceHolder img');
-            profilePic.src = userData.profile; 
+            profilePic.src = userData.userImag; 
             const profileUserName = document.querySelector('.profilePlaceHolder span');
             profileUserName.innerText = userData.userName;
-            console.log('Profile picture updated to:', userData.profile);
+            console.log('Profile picture updated to:', userData.userImag);
         } else {
             console.error('No profile image found or userData is not set.'); 
         }
