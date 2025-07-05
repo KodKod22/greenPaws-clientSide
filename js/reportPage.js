@@ -29,20 +29,8 @@ function changeCardColor(item,reportCard,cardData){
             cardData.innerText = "status: " + item;
         }
 }
-
-function createLocationCard(product) {
-    const ulFrag = document.createDocumentFragment();
-    const reportCard = document.createElement("a");
-    reportCard.classList.add("reportCard");
-    reportCard.href = "#";
-    reportCard.setAttribute("data-bs-toggle", "modal");
-    reportCard.setAttribute("data-bs-target", "#reportModal");
-    ulFrag.appendChild(reportCard);
-
-    for (const key in product) {
-        let cardData;
-
-        switch (key) {
+function setCardData(key,reportCard,cardData,product){
+    switch (key) {
             case "status":
                 cardData = document.createElement("span");
                 changeCardColor(product[key], reportCard, cardData);        
@@ -65,10 +53,24 @@ function createLocationCard(product) {
             default:
                 break; 
         }
+}
+function createReportCard(product) {
+    const ulFrag = document.createDocumentFragment();
+    const reportCard = document.createElement("a");
+    reportCard.classList.add("reportCard");
+    reportCard.href = "#";
+    reportCard.setAttribute("data-bs-toggle", "modal");
+    reportCard.setAttribute("data-bs-target", "#reportModal");
+    ulFrag.appendChild(reportCard);
+
+    for (const key in product) {
+        let cardData;
+        setCardData(key,reportCard,cardData,product)
+        
     }
 
-        const deleteBtn = document.createElement("button");
-        deleteBtn.classList.add("icon-trash");
+    const deleteBtn = document.createElement("button");
+    deleteBtn.classList.add("icon-trash");
 
     deleteBtn.addEventListener("click", (e) => {
         e.stopPropagation();  
@@ -85,18 +87,18 @@ function createLocationCard(product) {
     
 
     reportCard.addEventListener("click", () => {
-    const modalBody = document.getElementById("reportModalBody");
+        const modalBody = document.getElementById("reportModalBody");
 
-    modalBody.innerHTML = "";
+        modalBody.innerHTML = "";
 
-    const description = document.createElement("p");
-    description.innerText = "Report description:" + (product.description || "No description");
+        const description = document.createElement("p");
+        description.innerText = "Report description:" + (product.description || "No description");
 
-    const adminResponse = document.createElement("p");
-    adminResponse.innerText = "Manger responds: " + (product.adminResponds || "No manger response");
+        const adminResponse = document.createElement("p");
+        adminResponse.innerText = "Manger responds: " + (product.adminResponds || "No manger response");
 
-    modalBody.appendChild(description);
-    modalBody.appendChild(adminResponse);
+        modalBody.appendChild(description);
+        modalBody.appendChild(adminResponse);
     });
     
     return ulFrag;
@@ -105,7 +107,7 @@ function  initializeReportPage(data) {
     const listContiner = document.getElementsByClassName("listContiner")[0];
 
     for (const product of data.products) {
-        const reportCard = createLocationCard(product);
+        const reportCard = createReportCard(product);
         listContiner.appendChild(reportCard);
     }
 
