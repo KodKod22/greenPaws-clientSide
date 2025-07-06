@@ -99,7 +99,7 @@ function createMap(landmarks) {
     return map;
 }
 function setLocationData(product) {
-    console.log(product);
+    
     const pageHeadLine = document.createElement("h1");
     pageHeadLine.innerText = product.street + " street"
     const mainPageContainer = document.createElement("section");
@@ -158,7 +158,56 @@ function sendToServerNumBottles(){
         alert("Failed to add bottles: " + error.message);
     });
 }
+async function sendToServerReport(data) {
+    console.log("Sending data to server:", data);
+    try{
+        const response = await fetch("http://localhost:8081/api/requests/addRequest", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            userId: data.userId,
+            locationId: Number(data.locationId),
+            description: data.description.trim()
+        })
+    });
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err.message);
+    }
+
+    alert("Report submitted successfully.");
+    }catch(error){
+         console.error("Report send error:", error.message);
+        alert("Failed to send report: " + error.message);
+    }
+}
+function  getDataToSend(locationId){
+    const userData = JSON.parse(sessionStorage.getItem("userData"));
+    const userId = userData?.userId;
+
+    const selectedRadio = document.querySelector('input[name="exampleRadios"]:checked');
+    const otherText =  document.getElementById("other").value.trim();
+    let description = "";
+
+    if (selectedRadio) {
+        description = selectedRadio.nextElementSibling.innerText;
+    }
+
+    if (otherText !== "") {
+        description = otherText;
+    }
+    const data ={
+        userId:userId,
+        locationId:Number(locationId),
+        description
+    }
+    sendToServerReport(data)
+}
 window.onload = () => {
     loadPageObject();
-    document.getElementById("addBottelsBtn").addEventListener("click",sendToServerNumBottles)
+    document.getElementById("addBottelsBtn").addEventListener("click",sendToServerNumBottles);
+    document.getElementById("reportBtn").addEventListener("click",()=>{
+         let locationId = getObjectId();
+        getDataToSend(locationId);
+    });
 }

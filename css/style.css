@@ -611,6 +611,17 @@ h1 + img {
     position: relative;
     display: flex;
 }
+.listContiner .reportCard {
+    display: flex;
+    flex-direction: column;
+    text-align:start;
+    width: 200px;
+    height: 170px;
+    background-color: #FAFAFA;
+    border: solid #000000;
+    border-radius: 20px;
+    justify-content: center;
+}
 .listContiner .reportCard span {
     padding-left: 23px;
     width: 100%;

@@ -15,6 +15,23 @@ function getPageTitle() {
     pagePosition.appendChild(pagePositionTitle);
     pageRoadTrial.appendChild(pagePosition);
 }
+async function deleteRequest(requestId){
+    try{
+        const response = await fetch(`http://localhost:8081/api/requests/deleteRequest/${requestId}`,{
+            method:"DELETE",
+
+        });
+        if (!response.ok) {
+            const err = await response.json();
+            throw new Error(err.message);
+        }
+        alert("Request deleted successfully.");
+        location.reload();
+    } catch (err) {
+        console.error("Delete request error:", err.message);
+        alert("Failed to delete request: " + err.message);
+    }
+}
 function changeCardColor(item,reportCard,cardData){
     if (item == "new")
         {
@@ -36,18 +53,18 @@ function setCardData(key,reportCard,cardData,product){
                 changeCardColor(product[key], reportCard, cardData);        
                 reportCard.appendChild(cardData);
                 break;
-            case "location":
+            case "street":
                 cardData = document.createElement("span");
                 cardData.innerText = "Location: " + product[key];
                 cardData.style.display = "flex";
                 reportCard.appendChild(cardData);
                 break;
-            case "createAt":
+            case "createat":
                 cardData = document.createElement("span");
                 cardData.innerText = "Date: " + product[key];
                 reportCard.appendChild(cardData);
                 break;
-            case "id":
+            case "requestid":
                 reportCard.setAttribute("Report_ID", product[key]);
                 break;
             default:
@@ -56,11 +73,8 @@ function setCardData(key,reportCard,cardData,product){
 }
 function createReportCard(product) {
     const ulFrag = document.createDocumentFragment();
-    const reportCard = document.createElement("a");
+    const reportCard = document.createElement("div");
     reportCard.classList.add("reportCard");
-    reportCard.href = "#";
-    reportCard.setAttribute("data-bs-toggle", "modal");
-    reportCard.setAttribute("data-bs-target", "#reportModal");
     ulFrag.appendChild(reportCard);
 
     for (const key in product) {
@@ -73,8 +87,10 @@ function createReportCard(product) {
     deleteBtn.classList.add("icon-trash");
 
     deleteBtn.addEventListener("click", (e) => {
-        e.stopPropagation();  
-        
+        e.stopPropagation();
+        e.preventDefault();
+        const requestId = reportCard.getAttribute("Report_ID");
+        deleteRequest(requestId); 
     });
 
     reportCard.appendChild(deleteBtn);
@@ -99,6 +115,12 @@ function createReportCard(product) {
 
         modalBody.appendChild(description);
         modalBody.appendChild(adminResponse);
+
+        modalBody.appendChild(description);
+        modalBody.appendChild(adminResponse);
+
+        const modal = new bootstrap.Modal(document.getElementById("reportModal"));
+        modal.show();
     });
     
     return ulFrag;
@@ -106,19 +128,42 @@ function createReportCard(product) {
 function  initializeReportPage(data) {
     const listContiner = document.getElementsByClassName("listContiner")[0];
 
-    for (const product of data.products) {
+    for (const product of data) {
         const reportCard = createReportCard(product);
         listContiner.appendChild(reportCard);
     }
 
     document.getElementById("warraper").appendChild(listContiner);
 }
+async function getUserRequestFromServer(){
+  const userData = JSON.parse(sessionStorage.getItem('userData'));
+  const userId = userData.userId;
+  try {
+    const response = await fetch(`http://localhost:8081/api/requests/${userId}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err.message);
+    }
+
+    const data = await response.json();
+    if (Array.isArray(data) && data.length === 0) {
+      document.querySelector(".listContiner").innerText = "You don't have any reports yet.";
+      return;
+    }
+
+    initializeReportPage(data);
+  } catch (error) {
+    console.error("Request fetch error:", error.message);
+    alert("Failed to load request data: " + error.message);
+  }
+}
 window.onload = () =>{
     getPageTitle();
-    fetch("data/userReports.json")
-        .then(Response => Response.json())
-        .then(data => initializeReportPage(data))
-
+    getUserRequestFromServer();
     document.querySelector(".btn-close").addEventListener("click",()=>{
         document.activeElement.blur();
     })
