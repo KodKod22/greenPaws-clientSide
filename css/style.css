@@ -36,8 +36,6 @@ ul {
 nav.flex-column.nav-pills a span {
     color: #000000;
     font-family: Nunito;
-    margin-left:32px ;
-    
 }
 
 .nav-link:focus, .nav-link:hover {
@@ -55,7 +53,7 @@ nav.flex-column.nav-pills .nav-link.active, .nav-pills .nav-link.active{
   display: flex;
   align-items: center;
   gap: 12px; 
-  padding: 12px 20px;
+  padding: 12px 12px;
 }
 
 .nav-link svg {
@@ -153,6 +151,7 @@ header {
 }
 
 #asideBar {
+    
     display: flex;
     flex-direction: column;
     justify-content: space-between;
