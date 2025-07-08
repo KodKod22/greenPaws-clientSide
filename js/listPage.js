@@ -137,19 +137,19 @@ function addLocationToMap(lat, lng, product) {
         return;
     }
     const {
-        id,
-        city,
+        locationsid,
+        cityname,
         street,
-        food,
+        animelfood,
         status,
-        level
+        foodcapacity
     } = product;
   const popupContent = `
-    <a href="objectPage.html?locationId=${id}" style="color: black; text-decoration: none;">
-        <strong>${city}, ${street}</strong><br/>
-        <span><b>Food:</b> ${food}</span><br/>
+    <a href="objectPage.html?locationId=${locationsid}" style="color: black; text-decoration: none;">
+        <strong>${cityname}, ${street}</strong><br/>
+        <span><b>Food:</b> ${animelfood}</span><br/>
         <span><b>Status:</b> <span style="color:${status === 'active' ? 'green' : 'red'}">${status}</span></span><br/>
-        <span><b>Food level:</b> ${level}</span>
+        <span><b>Food level:</b> ${foodcapacity}</span>
     </a>`;
 
   L.marker([lat, lng])

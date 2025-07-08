@@ -1,7 +1,8 @@
 let map;
+const pendingMarkers = [];
 function userNavContainerCreator() {
     const Container = document.createElement("div");
-    Container.id = "userNavContainer";
+    Container.id = "navContainer";
     const reportsLink = document.createElement("a");
     reportsLink.href = "reportPage.html?pageTitle=Reports";
     const locationsLink = document.createElement("a");
@@ -38,6 +39,46 @@ function userNavContainerCreator() {
 
     return Container;
 }
+function adminNavContainerCreator(){
+    const Container = document.createElement("div");
+    Container.id = "navContainer";
+    const addLocationLink = document.createElement("a");
+    addLocationLink.href = "addLocation.html?pageTitle=Add new location";
+    const locationsLink = document.createElement("a");
+    locationsLink.href = `listPage.html?pageTitle=Locations`;
+    const statisticsLink = document.createElement("a");
+    statisticsLink.href = `graphPage.html?pageTitle=Statistics`;
+
+    const addLocationTitle = document.createElement("span");
+    addLocationTitle.innerText = "add Location";
+    const locationsTitle = document.createElement("span");
+    locationsTitle.innerText = "locations";
+    const statisticsTitle = document.createElement("span");
+    statisticsTitle.innerText = "statistics"
+
+    const svgAddIcon = document.createElement("div");
+    svgAddIcon.classList.add("addIcon");
+    const svgRecycleIcon = document.createElement("div");
+    svgRecycleIcon.classList.add("recycleIcon");
+    const svgActivityIcon = document.createElement("div");
+    svgActivityIcon.classList.add("activityIcon");
+
+    addLocationLink.appendChild(svgAddIcon);
+    addLocationLink.appendChild(addLocationTitle);
+
+    locationsLink.appendChild(svgRecycleIcon);
+    locationsLink.appendChild(locationsTitle);
+
+    statisticsLink.appendChild(svgActivityIcon);
+    statisticsLink.appendChild(statisticsTitle);
+
+    Container.appendChild(addLocationLink);
+    Container.appendChild(locationsLink);
+    Container.appendChild(statisticsLink);
+
+    return Container;
+
+}
 function initializeUserHomePage() {
     const warraper = document.getElementById("warraper");
     const pageTitle = document.createElement("h1");
@@ -54,6 +95,31 @@ function initializeUserHomePage() {
     warraper.appendChild(dogAndCatImg);
     warraper.appendChild(userNavContainer);
 }
+function addLocationToMap(lat, lng, product) {
+    if (!map) {
+        pendingMarkers.push({ lat, lng, product });
+        return;
+    }
+    const {
+        locationsid,
+        cityname,
+        street,
+        animelfood,
+        status,
+        foodcapacity
+    } = product;
+  const popupContent = `
+    <a href="objectPage.html?locationId=${locationsid}" style="color: black; text-decoration: none;">
+        <strong>${cityname}, ${street}</strong><br/>
+        <span><b>Food:</b> ${animelfood}</span><br/>
+        <span><b>Status:</b> <span style="color:${status === 'active' ? 'green' : 'red'}">${status}</span></span><br/>
+        <span><b>Food level:</b> ${foodcapacity}</span>
+    </a>`;
+
+  L.marker([lat, lng])
+    .addTo(map)
+    .bindPopup(popupContent)
+}
 function createMap(){
     if (map) return;
     map = L.map('sectionMap').setView([32.19261402429747, 34.87351857279742], 14); 
@@ -61,14 +127,28 @@ function createMap(){
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
     }).addTo(map);
-
+    pendingMarkers.forEach(m => addLocationToMap(m.lat, m.lng, m.product));
+}
+function initializeLocationPoints(data){
+    data.forEach(location => {
+         const [lat, lng] = location["landmarks"].split(',').map(Number);
+            addLocationToMap(lat, lng, location);
+    });
+}
+function getLocationsDataFromServer(){
+    fetch("http://localhost:8081/api/locations/Locations")
+        .then(Response => Response.json())
+        .then(data => initializeLocationPoints(data))
+        .catch(error => {
+            console.error("Fetch error:", error);
+        });
 }
 function initializeAdminHomePage(){
     const warraper = document.getElementById("warraper");
     let userNavContainer = document.createElement("div");
     const infoContainer = document.createElement("section");
     infoContainer.classList.add("infoContainer");
-    userNavContainer = userNavContainerCreator();
+    userNavContainer = adminNavContainerCreator();
     const notificationsWrapper = document.createElement("div");
     const notificationsContainer = document.createElement("section");
     notificationsContainer.id = "notificationsContainer"
@@ -99,6 +179,7 @@ function setHomePage(){
     
     if (userType === "admin") {
         initializeAdminHomePage();
+        getLocationsDataFromServer();
     }else{
         initializeUserHomePage();
     }
