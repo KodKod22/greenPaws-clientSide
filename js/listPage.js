@@ -53,7 +53,7 @@ function createLocationCard(product) {
     }
     if (userType === "admin") {
         const deleteBtn = document.createElement("button");
-        deleteBtn.classList.add("icon-trash");
+        deleteBtn.classList.add("icon-trash,delete");
 
         deleteBtn.addEventListener("click", (e) => {
             e.stopPropagation();

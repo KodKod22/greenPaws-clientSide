@@ -18,7 +18,7 @@ function getObjectId() {
     const objectId = aKeyValue[0].split("=")[1];
     return objectId;
 }
-function setUserInterface(){
+function setUserInterface(productStatus){
     
     const buttonsContainer = document.createElement("section");
     buttonsContainer.classList.add("buttonsContainer");
@@ -35,12 +35,39 @@ function setUserInterface(){
     reportBottlesBt.setAttribute("data-bs-toggle","modal");
     reportBottlesBt.setAttribute("data-bs-target","#reportModal");
     
+    if (productStatus === "inactive") {
+        addBottlesBt.disabled = true;
+    }
 
     buttonsContainer.appendChild(addBottlesBt);
     buttonsContainer.appendChild(reportBottlesBt);
     return buttonsContainer;
 }
+function setAdminInterface(){
+    const buttonsContainer = document.createElement("section");
+    buttonsContainer.classList.add("buttonsContainer");
+
+    const deleteBt = document.createElement("button");
+    const statisticsBt = document.createElement("button");
+    deleteBt.textContent = "delete location"
+    deleteBt.classList.add("icon-trash");
+    deleteBt.addEventListener("click",()=>{
+        deleteLocation(getObjectId());
+    })
+
+    statisticsBt.textContent = "statistics"
+    statisticsBt.classList.add("statistics");
+    statisticsBt.setAttribute("data-bs-toggle","modal");
+    statisticsBt.setAttribute("data-bs-target","#reportModal");
+    
+
+    buttonsContainer.appendChild(deleteBt);
+    buttonsContainer.appendChild(statisticsBt);
+    return buttonsContainer;
+}
 function createLocationDataContainer(product) {
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
+    const userType = userData.userType;
     const locationDataContainer = document.createElement("section");
     
     locationDataContainer.classList.add("locationDataContainer");
@@ -82,7 +109,21 @@ function createLocationDataContainer(product) {
         }
         locationDataContainer.appendChild(dataLine);
     }
-    locationDataContainer.appendChild(setUserInterface());
+    if (userType === "admin") {
+        
+        const editBt = document.createElement("button");
+        editBt.textContent = "edit";
+        editBt.classList.add("icon-report");
+        editBt.classList.add("editBt");
+        editBt.addEventListener("click",()=>{
+            editLocation();
+        })
+        locationDataContainer.appendChild(editBt);
+        locationDataContainer.appendChild(setAdminInterface());
+    }else{
+        locationDataContainer.appendChild(setUserInterface(product["status"]));
+    }
+    
     return locationDataContainer;
 }
 function createMap(landmarks) {

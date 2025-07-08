@@ -234,7 +234,6 @@ h1 + img {
     background-repeat: no-repeat;
     width: 56px;
     height: 56px;
-   
 }
 .addIcon {
     background-image: url("/images/plus-square.svg");
@@ -306,6 +305,15 @@ h1 + img {
     height: 31px;
     background-repeat: no-repeat;
     background-size: contain;
+}
+.statistics {
+    background-image: url("/images/activity.svg");
+    width: 31px;
+    height: 31px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.delete {
     align-self:normal;
     padding: 20px 20px;
     border-radius : 8px;
@@ -521,6 +529,7 @@ h1 + img {
     border-radius: 20px;
     width: 516px;
     height: 365px;
+    position: relative;
 }
 .locationDataContainer span {
     width: 100%;
@@ -675,6 +684,16 @@ h1 + img {
 #notificationsList span {
     display: block;
     margin-top: 4px;
+}
+.editBt {
+    width: 150px;
+    height: 65px;
+    position: absolute;
+    background-color: #A8D5BA;
+    border-radius: 20px;
+    top: 10px;
+    right: 10px;
+    padding-left: 30px;
 }
 @media (min-width: 1000px) and (max-width: 1400px) {
     #navContainer {
