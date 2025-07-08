@@ -1,12 +1,13 @@
+let map;
 function userNavContainerCreator() {
     const Container = document.createElement("div");
     Container.id = "userNavContainer";
     const reportsLink = document.createElement("a");
-    reportsLink.href = "#";
+    reportsLink.href = "reportPage.html?pageTitle=Reports";
     const locationsLink = document.createElement("a");
     locationsLink.href = `listPage.html?pageTitle=Locations`;
     const activityLink = document.createElement("a");
-    activityLink.href = `graphPage.html?pageTitle=activity`;
+    activityLink.href = `graphPage.html?pageTitle=Activity`;
 
     const reportsTitle = document.createElement("span");
     reportsTitle.innerText = "reports";
@@ -37,7 +38,7 @@ function userNavContainerCreator() {
 
     return Container;
 }
-function initializeHomePage() {
+function initializeUserHomePage() {
     const warraper = document.getElementById("warraper");
     const pageTitle = document.createElement("h1");
     const dogAndCatImg = document.createElement("img");
@@ -53,6 +54,55 @@ function initializeHomePage() {
     warraper.appendChild(dogAndCatImg);
     warraper.appendChild(userNavContainer);
 }
+function createMap(){
+    if (map) return;
+    map = L.map('sectionMap').setView([32.19261402429747, 34.87351857279742], 14); 
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+}
+function initializeAdminHomePage(){
+    const warraper = document.getElementById("warraper");
+    let userNavContainer = document.createElement("div");
+    const infoContainer = document.createElement("section");
+    infoContainer.classList.add("infoContainer");
+    userNavContainer = userNavContainerCreator();
+    const notificationsWrapper = document.createElement("div");
+    const notificationsContainer = document.createElement("section");
+    notificationsContainer.id = "notificationsContainer"
+    const notificationHeadline = document.createElement("h2");
+    notificationHeadline.innerText = "Notifications";
+    notificationsWrapper.appendChild(notificationHeadline);
+    notificationsWrapper.appendChild(notificationsContainer);
+
+    const mapWrapper = document.createElement("div");
+    const mapHeadline = document.createElement("h2");
+    mapHeadline.innerText = "Locations Map"
+    const mapSection = document.createElement("section");
+    mapSection.id = "sectionMap";
+    mapWrapper.appendChild(mapHeadline);
+    mapWrapper.appendChild(mapSection);
+
+    infoContainer.appendChild(notificationsWrapper);
+    infoContainer.appendChild(mapWrapper);
+    
+    
+    warraper.appendChild(infoContainer);
+    warraper.appendChild(userNavContainer);
+    createMap();
+}
+function setHomePage(){
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
+    const userType = userData.userType;
+    
+    if (userType === "admin") {
+        initializeAdminHomePage();
+    }else{
+        initializeUserHomePage();
+    }
+}
 window.onload = () => {
-    initializeHomePage();
+    setHomePage();
 };

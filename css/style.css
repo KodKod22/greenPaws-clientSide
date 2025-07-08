@@ -23,6 +23,7 @@ main {
     width: 100%;
     max-width: 100%;
 }
+
 ul {
     list-style: none;
     text-align: left;
@@ -214,6 +215,7 @@ h1 + img {
     justify-content: center;
     gap: 143px;
     margin-top: 115px;
+    margin-left: 110px;
 }
 #userNavContainer a {
     
@@ -627,7 +629,24 @@ h1 + img {
     display: flex;            
     align-items: center;
 }
-
+#sectionMap {
+    width: 430px;
+    height: 430px;
+    border-radius: 10px;
+}
+.infoContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 149px;
+    margin-left: 126px;
+}
+#notificationsContainer {
+    border: #000 solid;
+    width: 430px;
+    height: 430px;
+    border-radius: 10px;
+    background-color: #FAFAFA;
+}
 @media (min-width: 1000px) and (max-width: 1400px) {
     .chartCard {
         margin-right: auto;

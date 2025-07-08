@@ -53,7 +53,7 @@ function createLocationCard(product) {
     return ulFrag;
 }
 function  initializeListPage(data) {
-    console.log(data);
+
     const listContiner = document.getElementsByClassName("listContiner")[0];
 
     for (const product of data) {
