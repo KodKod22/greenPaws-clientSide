@@ -282,6 +282,7 @@ h1 + img {
     border: solid #000000;
     border-radius: 20px;
     justify-content: center;
+    position: relative;
 }
 .listContiner a span {
     width: 100%;
@@ -308,8 +309,9 @@ h1 + img {
     align-self:normal;
     padding: 20px 20px;
     border-radius : 8px;
-    margin-left: 20px;
-    margin-top: 20px;
+    top: 10px;
+    right: 10px;
+    position: absolute;
 }
 .icon-locationsid {
     background-image: url("/images/id.svg");
@@ -652,6 +654,27 @@ h1 + img {
     height: 430px;
     border-radius: 10px;
     background-color: #FAFAFA;
+}
+
+#notificationsList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+#notificationsList li {
+    margin-top: 10px;
+    padding-left: 10px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 6px;
+}
+
+#notificationsList span {
+    display: block;
+    margin-top: 4px;
 }
 @media (min-width: 1000px) and (max-width: 1400px) {
     #navContainer {

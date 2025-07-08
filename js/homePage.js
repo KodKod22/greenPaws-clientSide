@@ -79,6 +79,40 @@ function adminNavContainerCreator(){
     return Container;
 
 }
+function renderRequests(reports){
+    const container = document.getElementById("notificationsContainer");
+
+    const list = document.createElement("ul");
+    list.id = "notificationsList";
+
+    const newReports = reports.filter(report => report.status === "new");
+      if (newReports.length === 0) {
+        const emptyMsg = document.createElement("p");
+        emptyMsg.innerText = "No new reports.";
+        container.appendChild(emptyMsg);
+        return;
+    }
+
+    newReports.forEach(report =>{
+        const item = document.createElement("li");
+        const title = document.createElement("h4");
+        title.innerText = `${report.username} | ${report.street}`;
+        const status = document.createElement("span");
+        status.style.color = "#A8D5BA";
+        status.innerText = report.status;
+        const desc = document.createElement("span");
+        desc.innerText = report.description.length > 100 
+            ? report.description.slice(0, 100) + "..." 
+            : report.description;
+
+        item.appendChild(title);
+        item.appendChild(status);
+        item.appendChild(desc);
+
+        list.appendChild(item);
+    })
+    container.appendChild(list);
+}
 function initializeUserHomePage() {
     const warraper = document.getElementById("warraper");
     const pageTitle = document.createElement("h1");
@@ -143,6 +177,31 @@ function getLocationsDataFromServer(){
             console.error("Fetch error:", error);
         });
 }
+async function getReportFromServer(){
+    
+  try {
+    const response = await fetch(`http://localhost:8081/api/requests/requests`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err.message);
+    }
+
+    const data = await response.json();
+    if (Array.isArray(data) && data.length === 0) {
+      document.querySelector(".listContiner").innerText = "You don't have any reports yet.";
+      return;
+    }
+
+    renderRequests(data);
+  } catch (error) {
+    console.error("Request fetch error:", error.message);
+    alert("Failed to load request data: " + error.message);
+  }
+}
 function initializeAdminHomePage(){
     const warraper = document.getElementById("warraper");
     let userNavContainer = document.createElement("div");
@@ -172,6 +231,7 @@ function initializeAdminHomePage(){
     warraper.appendChild(infoContainer);
     warraper.appendChild(userNavContainer);
     createMap();
+    getReportFromServer();
 }
 function setHomePage(){
     const userData = JSON.parse(sessionStorage.getItem('userData'));

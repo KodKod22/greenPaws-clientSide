@@ -41,7 +41,7 @@ function changeCardColor(item,reportCard,cardData){
         {
             reportCard.style.backgroundColor ="#D3D3D3"
             cardData.innerText = "status: " + item;
-        }else if(item == "progress"){
+        }else if(item == "progressive"){
             reportCard.style.backgroundColor = "#FFBF00"
             cardData.innerText = "status: " + item;
         }

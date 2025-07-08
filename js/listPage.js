@@ -18,6 +18,8 @@ function getPageTitle() {
     pageRoadTrial.appendChild(pagePosition);
 }
 function createLocationCard(product) {
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
+    const userType = userData.userType;
     const ulFrag = document.createDocumentFragment();
     const locationCard = document.createElement("a");
     locationCard.href = `objectPage.html?locationId=${product.locationsid}`;
@@ -48,6 +50,18 @@ function createLocationCard(product) {
             locationCard.appendChild(cardData);
         } 
         
+    }
+    if (userType === "admin") {
+        const deleteBtn = document.createElement("button");
+        deleteBtn.classList.add("icon-trash");
+
+        deleteBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            deleteLocation(product.locationsid); 
+        });
+
+        locationCard.appendChild(deleteBtn);
     }
 
     return ulFrag;
