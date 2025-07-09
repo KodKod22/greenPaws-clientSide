@@ -65,6 +65,83 @@ function setAdminInterface(){
     buttonsContainer.appendChild(statisticsBt);
     return buttonsContainer;
 }
+async function updateLocationOnServer(locationData){
+    try{
+     const response = await fetch(`http://localhost:8081/api/locations/updateLocation`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(locationData)
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || "Failed to update location");
+    }
+
+    const updatedLocation = await response.json();
+    alert("Location updated successfully.");
+    location.reload();
+  } catch (err) {
+    console.error("PUT request failed:", err.message);
+    alert("Failed to update location: " + err.message);
+  }
+}
+function updateLocation(){
+    const locationId = getObjectId();
+    const animalFoodValue = document.getElementById("inputAnimelFood").value.trim();
+    const selectStatusValue = document.getElementById("selectStatus").value;
+    const foodLevel = document.getElementById("inputFoodLevel").value.trim();
+
+    const locationData = {
+        locationId:locationId,
+        animalFood:animalFoodValue || undefined,
+        status:selectStatusValue,
+        foodCapacity:foodLevel || undefined
+    }
+    updateLocationOnServer(locationData);
+}
+function changeTags(){
+    const editBtn = document.querySelector(".editBt");
+    const spanAnimalFood = document.querySelector(".icon-animelfood");
+    const spanStatus = document.querySelector(".icon-active, .icon-inactive");
+    const spanFoodLevel = document.querySelector(".icon-foodcapacity")
+    
+    const inputAnimelFood = document.createElement("input");
+    inputAnimelFood.placeholder = spanAnimalFood.innerText;
+    inputAnimelFood.id = "inputAnimelFood";
+    spanAnimalFood.replaceWith(inputAnimelFood);
+
+     const selectStatus = document.createElement("select");
+     selectStatus.id = "selectStatus";
+    const options = ["active", "inactive"];
+
+    options.forEach(status => {
+        const option = document.createElement("option");
+        option.value = status;
+        option.text = status;
+        if (spanStatus.innerText.toLowerCase() === status) {
+            option.selected = true;
+        }
+        selectStatus.appendChild(option);
+    });
+
+    spanStatus.replaceWith(selectStatus);
+
+    const inputFoodLevel = document.createElement("input");
+    inputFoodLevel.placeholder = spanFoodLevel.innerText.split(":")[1].split("%")[0];
+    inputFoodLevel.id = "inputFoodLevel"
+    spanFoodLevel.replaceWith(inputFoodLevel);
+
+    const saveBtn = document.createElement("button");
+    saveBtn.textContent = "save";
+    saveBtn.classList.add("editBt");
+    saveBtn.addEventListener("click",()=>{
+        updateLocation();
+    })
+    editBtn.replaceWith(saveBtn);
+}
 function createLocationDataContainer(product) {
     const userData = JSON.parse(sessionStorage.getItem('userData'));
     const userType = userData.userType;
@@ -116,7 +193,7 @@ function createLocationDataContainer(product) {
         editBt.classList.add("icon-report");
         editBt.classList.add("editBt");
         editBt.addEventListener("click",()=>{
-            editLocation();
+            changeTags();
         })
         locationDataContainer.appendChild(editBt);
         locationDataContainer.appendChild(setAdminInterface());
