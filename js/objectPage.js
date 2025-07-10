@@ -61,9 +61,9 @@ async function getChartLocationData() {
     }
 }
 function setChartModel(){
-    const modalBody = document.getElementById("addBottelsModalBody");
-    const modelHeader = document.getElementById("addBottelsModalHeader");
-    document.getElementById("addBottelsFooter").innerHTML="";
+    const modalBody = document.getElementById("modalBody");
+    const modelHeader = document.getElementById("modalHeader");
+    document.getElementById("modalFooter").innerHTML="";
     modelHeader.getElementsByTagName("h5")[0].innerText = "Location chart"
     const locationChart = document.createElement("canvas");
     locationChart.id = "locationChart";
@@ -72,7 +72,57 @@ function setChartModel(){
     modalBody.innerHTML = "";
 
     modalBody.appendChild(locationChart);
-    const modal = new bootstrap.Modal(document.getElementById("addBottelsModal"));
+    const modal = new bootstrap.Modal(document.getElementById("modal"));
+    modal.show();
+}
+function setAddBottlesModel(){
+    const modalBody = document.getElementById("modalBody");
+    modalBody.innerHTML = ""
+    const modelHeader = document.getElementById("modalHeader");
+    modelHeader.getElementsByTagName("h5")[0].innerText = "Location recycle station"
+    const modalBtn = document.getElementById("modalBtn");
+    modalBtn.setAttribute("data-model-type", "addBottles");
+    const instruction = document.createElement("p");
+    instruction.innerText = "Enter the total number of bottles";
+    const label = document.createElement("label");
+    label.htmlFor = "bottles";
+    label.innerText = "Number of bottles:"
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.id = "bottles"
+    input.name = "bottles"
+
+    modalBody.appendChild(instruction);
+    modalBody.appendChild(label);
+    modalBody.appendChild(input);
+    const modal = new bootstrap.Modal(document.getElementById("modal"));
+    modal.show();
+}
+function setReportModel(){
+    const modalBody = document.getElementById("modalBody");
+    modalBody.innerHTML = ""
+    const modelHeader = document.getElementById("modalHeader");
+    modelHeader.getElementsByTagName("h5")[0].innerText = "complaint"
+    const modalBtn = document.getElementById("modalBtn");
+    modalBtn.setAttribute("data-model-type", "report");
+    const instruction = document.createElement("p");
+    instruction.innerText = "Enter the complaint";
+    const label = document.createElement("label");
+    label.htmlFor = "complaint";
+    label.innerText = "complaint:"
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.id = "complaint"
+    input.name = "complaint"
+    input.style.width = "250px";
+    input.style.height = "35px";
+
+    modalBody.appendChild(instruction);
+    modalBody.appendChild(label);
+    modalBody.appendChild(input);
+    const modal = new bootstrap.Modal(document.getElementById("modal"));
     modal.show();
 }
 function setUserInterface(productStatus){
@@ -84,13 +134,15 @@ function setUserInterface(productStatus){
     const reportBottlesBt = document.createElement("button");
     addBottlesBt.textContent = "Add bottles"
     addBottlesBt.classList.add("icon-addBottles");
-    addBottlesBt.setAttribute("data-bs-toggle","modal");
-    addBottlesBt.setAttribute("data-bs-target","#addBottelsModal")
+    addBottlesBt.addEventListener("click",()=>{
+        setAddBottlesModel()
+    })
 
-    reportBottlesBt.textContent = "report"
+    reportBottlesBt.textContent = "complaint"
     reportBottlesBt.classList.add("icon-report");
-    reportBottlesBt.setAttribute("data-bs-toggle","modal");
-    reportBottlesBt.setAttribute("data-bs-target","#reportModal");
+    reportBottlesBt.addEventListener("click",()=>{
+        setReportModel();
+    })
     
     if (productStatus === "inactive") {
         addBottlesBt.disabled = true;
@@ -304,19 +356,21 @@ function loadPageObject() {
 }
 function sendToServerNumBottles(){
     const bottlesValue = document.getElementById("bottles").value;
-    const locationIdText = document.querySelector(".icon-locationsid").innerText;
-    const locationId = locationIdText.split(":")[1].trim();
-     const userData = JSON.parse(sessionStorage.getItem('userData'));
+    console.log(bottlesValue);
+    const locationId = getObjectId();
+     console.log(locationId);
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
     const userId = userData.userId;
+    console.log(userId)
     fetch("http://localhost:8081/api/locations/addBottles",{
         method:"POST",
         headers:{
             "Content-Type": "application/json"
         },
         body:JSON.stringify({
-            userID:userId,
-            locationId:locationId, 
-            bottleCount:bottlesValue
+            userId:Number(userId),
+            locationId:Number(locationId), 
+            bottleCount:Number(bottlesValue)
         })
     })
      .then(async response => {
@@ -362,17 +416,10 @@ function  getDataToSend(locationId){
     const userData = JSON.parse(sessionStorage.getItem("userData"));
     const userId = userData?.userId;
 
-    const selectedRadio = document.querySelector('input[name="exampleRadios"]:checked');
-    const otherText =  document.getElementById("other").value.trim();
+    const otherText =  document.getElementById("complaint").value.trim();
     let description = "";
-
-    if (selectedRadio) {
-        description = selectedRadio.nextElementSibling.innerText;
-    }
-
-    if (otherText !== "") {
-        description = otherText;
-    }
+    description = otherText;
+    
     const data ={
         userId:userId,
         locationId:Number(locationId),
@@ -382,11 +429,25 @@ function  getDataToSend(locationId){
 }
 window.onload = () => {
     loadPageObject();
-    document.getElementById("addBottelsBtn").addEventListener("click",sendToServerNumBottles);
-    document.getElementById("reportBtn").addEventListener("click",()=>{
-         let locationId = getObjectId();
-        getDataToSend(locationId);
+
+
+    document.getElementById("modalBtn").addEventListener("click", () => {
+    const modalType = document.getElementById("modalBtn").getAttribute("data-model-type");
+
+    switch(modalType) {
+        case "addBottles":
+            sendToServerNumBottles();
+            document.activeElement.blur();
+            break;
+        case "report":
+            const locationId = getObjectId();
+            getDataToSend(locationId);
+            document.activeElement.blur();
+            break;
+    }
+        
     });
+  
     document.querySelectorAll(".btn-close").forEach(element => {
         element.addEventListener("click", () => {
             document.activeElement.blur();
