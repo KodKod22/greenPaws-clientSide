@@ -116,9 +116,6 @@ function createReportCard(product) {
         modalBody.appendChild(description);
         modalBody.appendChild(adminResponse);
 
-        modalBody.appendChild(description);
-        modalBody.appendChild(adminResponse);
-
         const modal = new bootstrap.Modal(document.getElementById("reportModal"));
         modal.show();
     });

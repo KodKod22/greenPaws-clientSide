@@ -66,8 +66,28 @@ async function getDataFromServer(){
     let xValues = data.map((entry) => entry.street);
     let yValues = data.map((entry) => Number(entry.total_bottles));
 
-    console.log("xValues:", xValues);
-    console.log("yValues:", yValues);
+    setGraph(xValues, yValues);
+  } catch (error) {
+    console.error("Graph fetch error:", error.message);
+    alert("Failed to load graph data: " + error.message);
+  }
+}
+async function getAllLocationsDataServer(){
+  try {
+    const response = await fetch(`http://localhost:8081/api/statistics/locationsStats`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err.message);
+    }
+
+    const data = await response.json();
+
+    let xValues = data.map((entry) => entry.street);
+    let yValues = data.map((entry) => Number(entry.total_bottles));
 
     setGraph(xValues, yValues);
   } catch (error) {
@@ -75,8 +95,18 @@ async function getDataFromServer(){
     alert("Failed to load graph data: " + error.message);
   }
 }
+function setPageView(){
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
+    const userType = userData.userType;
+    
+    if (userType === "admin") {
+        getAllLocationsDataServer();
+    }else{
+        getDataFromServer();
+    }
+}
 window.onload = () =>{
     getPageTitle();
-    getDataFromServer()
+    setPageView();
 }
 

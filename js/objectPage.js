@@ -18,6 +18,63 @@ function getObjectId() {
     const objectId = aKeyValue[0].split("=")[1];
     return objectId;
 }
+function setLocationChart(locationChart){
+    const ctx = document.getElementById("locationChart");
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: [locationChart.street],
+      datasets: [{
+        label: "The location recycle activity",
+        backgroundColor: "green",
+        data: locationChart.total_bottles
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          type: 'linear',
+          beginAtZero: true,
+          min: 0,
+          ticks: {
+            stepSize: 5
+          },
+        }
+      }
+    }
+  });
+}
+async function getChartLocationData() {
+    try {
+        const locationId = getObjectId();
+        const response = await fetch(`http://localhost:8081/api/statistics/locationStats/${locationId}`);
+        if (!response.ok) {
+            throw new Error("Failed to fetch chart data");
+        }
+        const data = await response.json();
+        const locationChart = data[0];
+        setLocationChart(locationChart);
+    } catch (error) {
+        console.error("Error fetching chart data:", error.message);
+    }
+}
+function setChartModel(){
+    const modalBody = document.getElementById("addBottelsModalBody");
+    const modelHeader = document.getElementById("addBottelsModalHeader");
+    document.getElementById("addBottelsFooter").innerHTML="";
+    modelHeader.getElementsByTagName("h5")[0].innerText = "Location chart"
+    const locationChart = document.createElement("canvas");
+    locationChart.id = "locationChart";
+    locationChart.width = 400;
+    locationChart.height = 300;
+    modalBody.innerHTML = "";
+
+    modalBody.appendChild(locationChart);
+    const modal = new bootstrap.Modal(document.getElementById("addBottelsModal"));
+    modal.show();
+}
 function setUserInterface(productStatus){
     
     const buttonsContainer = document.createElement("section");
@@ -57,8 +114,10 @@ function setAdminInterface(){
 
     statisticsBt.textContent = "statistics"
     statisticsBt.classList.add("statistics");
-    statisticsBt.setAttribute("data-bs-toggle","modal");
-    statisticsBt.setAttribute("data-bs-target","#reportModal");
+    statisticsBt.addEventListener("click",()=>{
+        setChartModel();
+        getChartLocationData();
+    })
     
 
     buttonsContainer.appendChild(deleteBt);
@@ -328,4 +387,9 @@ window.onload = () => {
          let locationId = getObjectId();
         getDataToSend(locationId);
     });
+    document.querySelectorAll(".btn-close").forEach(element => {
+        element.addEventListener("click", () => {
+            document.activeElement.blur();
+        });
+    });  
 }
