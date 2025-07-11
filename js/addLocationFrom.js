@@ -15,8 +15,36 @@ function getPageTitle() {
     pagePosition.appendChild(pagePositionTitle);
     pageRoadTrial.appendChild(pagePosition);
 }
-function getNewLocationData(){
+async function getNewLocationData(event){
+    event.preventDefault();
+    const city = document.getElementById("cityName").value;
+    console.log(city);
+    const street = document.getElementById("streetName").value;
+    const animalFood = document.getElementById("animalFood").value;
+    const status = document.getElementById("status").value;
     
+    const newLocation = {
+        city: city,
+        streetName: street,
+        animalFood: animalFood,
+        status: status
+    };
+    try{
+        const response = await fetch("http://localhost:8081/api/locations/newLocation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({newLocation})
+    });
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err.message);
+    }
+
+    alert("The new location has been submitted successfully.");
+    }catch(error){
+         console.error("Form send error:", error.message);
+        alert("Failed to send From: " + error.message);
+    }
 }
 function populateAnimalFood(){
     const animalOptions = ['Dog food','Cat food','Cat and dog food'];
@@ -29,7 +57,7 @@ function populateAnimalFood(){
     })
 }
 function populateStatus(){
-    const animalOptions = ['Active','Inactive'];
+    const animalOptions = ['active','inactive'];
     const select = document.getElementById("status");
     animalOptions.forEach(optionText =>{
         const opt = document.createElement("option");
@@ -42,5 +70,6 @@ window.onload = () => {
     getPageTitle();
     populateAnimalFood();
     populateStatus();
-    document.querySelector("btn btn-success").addEventListener("click",getNewLocationData)
+    document.querySelector(".btn.btn-success").addEventListener("click",(event) =>{
+        getNewLocationData(event)})
 };

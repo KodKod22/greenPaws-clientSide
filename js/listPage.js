@@ -63,6 +63,7 @@ function createLocationCard(product) {
         });
 
         locationCard.appendChild(deleteBtn);
+        document.getElementById("addLocationbtn").style.display = "block"
     }
 
     return ulFrag;

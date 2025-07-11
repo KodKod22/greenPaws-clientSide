@@ -237,7 +237,7 @@ h1 + img {
 }
 .addIcon {
     background-image: url("/images/plus-square.svg");
-    background-position: center;
+    background-position: 10px center;
     background-repeat: no-repeat;
     width: 56px;
     height: 56px;
@@ -317,7 +317,7 @@ h1 + img {
     align-self:normal;
     padding: 20px 20px;
     border-radius : 8px;
-    top: 10px;
+    top: 95px;
     right: 10px;
     position: absolute;
 }
@@ -366,6 +366,7 @@ h1 + img {
 
 #fillerSearchContiner {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 50px;
     margin-left: 70px;
@@ -701,6 +702,9 @@ h1 + img {
 #addLocationForm {
     margin-top: 50px;    
 }
+#addLocationbtn {
+    display: none;
+}
 @media (min-width: 1000px) and (max-width: 1400px) {
     #navContainer {
         margin-left: 65px;
@@ -722,6 +726,12 @@ h1 + img {
     }
      .formContainer {
         margin-left: 0;
+    }
+     #map {
+        margin-left: 20px;
+    }
+     #fillerSearchContiner {
+        margin-left: 70px;
     }
 }
 @media (max-width: 999px) {
@@ -776,6 +786,7 @@ h1 + img {
     }
     #fillerSearchContiner {
         margin-left: 0px;
+        justify-content: center;
     }
   
    .listContiner {
@@ -964,16 +975,7 @@ h1 + img {
         height: 50vh;
         margin-left: 20px;
     }
-}
- @media (min-width: 1000px) and (max-width: 1400px){
- 
-     #map {
-        margin-left: 20px;
-    }
-     #fillerSearchContiner {
-        margin-left: 20px;
-    }
- }   
+}  
  
 @media only screen and (max-width: 768px){
 
