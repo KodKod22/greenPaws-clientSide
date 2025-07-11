@@ -695,6 +695,12 @@ h1 + img {
     right: 10px;
     padding-left: 30px;
 }
+.formContainer {
+    margin-left: 150px;
+}
+#addLocationForm {
+    margin-top: 50px;    
+}
 @media (min-width: 1000px) and (max-width: 1400px) {
     #navContainer {
         margin-left: 65px;
@@ -713,6 +719,9 @@ h1 + img {
         margin-left: 0;
         gap: 60px;
         align-items: center;
+    }
+     .formContainer {
+        margin-left: 0;
     }
 }
 @media (max-width: 999px) {
@@ -747,6 +756,9 @@ h1 + img {
     }
 }
 @media (min-width: 360px) and (max-width: 992px) {
+    .formContainer {
+        margin-left: 0;
+    }
   
     .infoContainer {
         flex-direction: column;
