@@ -17,6 +17,122 @@ function getPageTitle() {
     pagePosition.appendChild(pagePositionTitle);
     pageRoadTrial.appendChild(pagePosition);
 }
+function populateAnimalFood(){
+    const animalOptions = ['Dog food','Cat food','Cat and dog food'];
+    const select = document.getElementById("animalFood");
+    animalOptions.forEach(optionText =>{
+        const opt = document.createElement("option");
+        opt.value = optionText;
+        opt.innerText = optionText;
+        select.appendChild(opt);
+    })
+}
+function populateStatus(){
+    const statusOptions = ['active','inactive'];
+    const select = document.getElementById("status");
+    statusOptions.forEach(optionText =>{
+        const opt = document.createElement("option");
+        opt.value = optionText;
+        opt.innerText = optionText;
+        select.appendChild(opt);
+    })
+}
+async function getNewLocationData(){
+    
+    const city = document.getElementById("cityName").value;
+    
+    const street = document.getElementById("streetName").value;
+    const animalFood = document.getElementById("animalFood").value;
+    const status = document.getElementById("status").value;
+    
+    const newLocation = {
+        city: city,
+        streetName: street,
+        animalFood: animalFood,
+        status: status
+    };
+    try{
+        const response = await fetch("http://localhost:8081/api/locations/newLocation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({newLocation})
+    });
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err.message);
+    }
+
+    alert("The new location has been submitted successfully.");
+    location.reload();
+    }catch(error){
+         console.error("Form send error:", error.message);
+        alert("Failed to send From: " + error.message);
+    }
+}
+function setAddLocationModel() {
+    const modalBody = document.getElementById("addLocationModalBody");
+    modalBody.innerHTML = "";
+
+    const form = document.createElement("form");
+    form.id = "addLocationForm";
+    form.className = "row g-3 needs-validation";
+    form.noValidate = true;
+
+    const citySection = document.createElement("section");
+    citySection.className = "col-md-6";
+    citySection.innerHTML = `
+        <label for="cityName" class="form-label">City</label>
+        <input type="text" class="form-control" id="cityName" name="city" required>
+    `;
+    form.appendChild(citySection);
+
+    const streetSection = document.createElement("section");
+    streetSection.className = "col-md-6";
+    streetSection.innerHTML = `
+        <label for="streetName" class="form-label">Street</label>
+        <input type="text" class="form-control" id="streetName" name="street" required>
+    `;
+    form.appendChild(streetSection);
+        
+    const foodSection = document.createElement("section");
+    foodSection.className = "col-md-6";
+    foodSection.innerHTML = `
+        <label for="animalFood" class="form-label">Animal Food Type</label>
+        <select class="form-select" id="animalFood" name="animalFood" required>
+            <option selected disabled value="">Choose...</option>
+        </select>
+    `;
+    form.appendChild(foodSection);
+
+    const statusSection = document.createElement("section");
+    statusSection.className = "col-md-6";
+    statusSection.innerHTML = `
+        <label for="status" class="form-label">Status</label>
+        <select class="form-select" id="status" name="status" required>
+            <option selected disabled value="">Choose...</option>
+        </select>
+    `;
+    form.appendChild(statusSection);
+
+    const submitSection = document.createElement("section");
+    submitSection.className = "col-12";
+    submitSection.innerHTML = `
+        <button type="submit" class="btn btn-success">Add Location</button>
+    `;
+    form.appendChild(submitSection);
+
+    modalBody.appendChild(form);
+
+    populateAnimalFood();
+    populateStatus();
+
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        await getNewLocationData();
+    });
+    const modal = new bootstrap.Modal(document.getElementById("addLocationModal"));
+    modal.show();
+}
 function createLocationCard(product) {
     const userData = JSON.parse(sessionStorage.getItem('userData'));
     const userType = userData.userType;
@@ -63,7 +179,9 @@ function createLocationCard(product) {
         });
 
         locationCard.appendChild(deleteBtn);
-        document.getElementById("addLocationbtn").style.display = "block"
+       const addLocationbtn =   document.getElementById("addLocationbtn");
+        addLocationbtn.style.display = "block";
+        addLocationbtn.addEventListener("click",setAddLocationModel);
     }
 
     return ulFrag;

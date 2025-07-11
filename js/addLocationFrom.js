@@ -41,6 +41,7 @@ async function getNewLocationData(event){
     }
 
     alert("The new location has been submitted successfully.");
+    location.reload();
     }catch(error){
          console.error("Form send error:", error.message);
         alert("Failed to send From: " + error.message);
