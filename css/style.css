@@ -529,12 +529,12 @@ h1 + img {
     font-size: 32px;
     border-radius: 20px;
     width: 516px;
-    height: 365px;
+    height: 50%;
     position: relative;
 }
 .locationDataContainer span {
     width: 100%;
-    padding-left: 70px;
+    padding-left: 100px;
     padding-top: 15px;
     height: 100%;
 }

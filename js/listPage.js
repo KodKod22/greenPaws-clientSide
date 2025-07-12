@@ -133,6 +133,24 @@ function setAddLocationModel() {
     const modal = new bootstrap.Modal(document.getElementById("addLocationModal"));
     modal.show();
 }
+async function deleteLocation(locationId){
+    try{
+        const response = await fetch(`http://localhost:8081/api/locations/removeLocation/${locationId}`,{
+            method:"DELETE",
+
+        });
+        if (!response.ok) {
+            const err = await response.json();
+            throw new Error(err.message);
+        }
+        alert("Location deleted successfully.");
+        location.reload();
+    } catch (err) {
+        console.error("Delete request error:", err.message);
+        alert("Failed to delete location: " + err.message);
+    }
+
+}
 function createLocationCard(product) {
     const userData = JSON.parse(sessionStorage.getItem('userData'));
     const userType = userData.userType;

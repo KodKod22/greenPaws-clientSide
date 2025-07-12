@@ -152,6 +152,23 @@ function setUserInterface(productStatus){
     buttonsContainer.appendChild(reportBottlesBt);
     return buttonsContainer;
 }
+async function deleteLocation(locationId){
+      try{
+        const response = await fetch(`http://localhost:8081/api/locations/removeLocation/${locationId}`,{
+            method:"DELETE",
+
+        });
+        if (!response.ok) {
+            const err = await response.json();
+            throw new Error(err.message);
+        }
+        alert("Location deleted successfully.");
+        window.location.assign(document.referrer);
+    } catch (err) {
+        console.error("Delete request error:", err.message);
+        alert("Failed to delete location: " + err.message);
+    }
+}
 function setAdminInterface(){
     const buttonsContainer = document.createElement("section");
     buttonsContainer.classList.add("buttonsContainer");
