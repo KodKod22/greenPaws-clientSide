@@ -626,10 +626,7 @@ h1 + img {
     display: block;
     
 }
-.reportCard {
-    position: relative;
-    display: flex;
-}
+
 .listContiner .reportCard {
     display: flex;
     flex-direction: column;
@@ -639,13 +636,14 @@ h1 + img {
     background-color: #FAFAFA;
     border: solid #000000;
     border-radius: 20px;
-    justify-content: center;
+    position: relative;
 }
 .listContiner .reportCard span {
     padding-left: 23px;
     width: 100%;
     display: flex;            
     align-items: center;
+    margin-top: 5px;
 }
 #sectionMap {
     width: 430px;
