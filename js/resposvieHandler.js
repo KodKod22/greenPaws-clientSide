@@ -163,10 +163,54 @@ function changeSidebar(){
         setUserSideBar(sideBar);
     }
 }
+async function sendSearchInput(searchValue) {
+    const [city, streetName] = searchValue.split(",").map(s => s.trim());
+    if (city == undefined || streetName == undefined) {
+        alert("Enter city and street");
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://localhost:8081/api/locations/location?city=${encodeURIComponent(city)}&streetName=${encodeURIComponent(streetName)}`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+        });
+
+        if (!response.ok) {
+            const err = await response.json();
+            throw new Error(err.message);
+        }
+
+        const data = await response.json();
+
+        if (!data || data.length === 0) {
+            alert("No results found.");
+            return;
+        }
+
+        const locationId = data[0].locationsid;
+        window.location.href = `objectPage.html?locationId=${locationId}`;
+    } catch (error) {
+        console.error("Request fetch error:", error.message);
+        alert("Failed to load request data: " + error.message);
+    }
+}
 document.addEventListener("DOMContentLoaded", () => {
     changeSidebar();
     setupSidebar();
     setupSearchToggle();
     setUserProfile();
+    const searchInput = document.querySelector(".search-input");
+
+    searchInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault(); 
+            const searchValue = searchInput.value.trim();
+            if (searchValue !== "") {
+                sendSearchInput(searchValue);
+            }
+        }
+    });
 });
+
     
