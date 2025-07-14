@@ -29,7 +29,7 @@ async function getNewLocationData(event){
         status: status
     };
     try{
-        const response = await fetch("http://localhost:8081/api/locations/newLocation", {
+        const response = await fetch("https://greenpaws-serverside.onrender.com/api/locations/newLocation", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({newLocation})

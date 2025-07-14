@@ -60,7 +60,7 @@ function setLocationChart(locationChart){
 async function getChartLocationData() {
     try {
         const locationId = getObjectId();
-        const response = await fetch(`http://localhost:8081/api/statistics/locationStats/${locationId}`);
+        const response = await fetch(`https://greenpaws-serverside.onrender.com/api/statistics/locationStats/${locationId}`);
 
         if (!response.ok) {
             const errData = await response.json().catch(() => ({}));
@@ -191,7 +191,7 @@ function setUserInterface(productStatus){
 async function deleteLocation(location_id){
     console.log(location_id);
       try{
-        const response = await fetch(`http://localhost:8081/api/locations/removeLocation/${location_id}`,{
+        const response = await fetch(`https://greenpaws-serverside.onrender.com/api/locations/removeLocation/${location_id}`,{
             method:"DELETE",
 
         });
@@ -232,7 +232,7 @@ function setAdminInterface(){
 }
 async function updateLocationOnServer(locationData){
     try{
-     const response = await fetch(`http://localhost:8081/api/locations/updateLocation`, {
+     const response = await fetch(`https://greenpaws-serverside.onrender.com/api/locations/updateLocation`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
@@ -400,7 +400,7 @@ function setLocationData(product) {
 }
 function loadPageObject() {
     let locationId = getObjectId();
-    fetch(`http://localhost:8081/api/locations/${locationId}`)
+    fetch(`https://greenpaws-serverside.onrender.com/api/locations/${locationId}`)
         .then(Response => Response.json())
         .then(data => {
             const location = data[0];
@@ -416,7 +416,7 @@ function sendToServerNumBottles(){
     const userData = JSON.parse(sessionStorage.getItem('userData'));
     const userId = userData.user_id;
     
-    fetch("http://localhost:8081/api/locations/addBottles",{
+    fetch("https://greenpaws-serverside.onrender.com/api/locations/addBottles",{
         method:"POST",
         headers:{
             "Content-Type": "application/json"
@@ -446,7 +446,7 @@ function sendToServerNumBottles(){
 async function sendToServerReport(data) {
     
     try{
-        const response = await fetch("http://localhost:8081/api/requests/addRequest", {
+        const response = await fetch("https://greenpaws-serverside.onrender.com/api/requests/addRequest", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

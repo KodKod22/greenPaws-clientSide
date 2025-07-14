@@ -17,7 +17,7 @@ function getPageTitle() {
 }
 async function deleteRequest(report_id){
     try{
-        const response = await fetch(`http://localhost:8081/api/requests/deleteRequest/${report_id}`,{
+        const response = await fetch(`https://greenpaws-serverside.onrender.com/api/requests/deleteRequest/${report_id}`,{
             method:"DELETE",
         });
         if (!response.ok) {
@@ -78,7 +78,7 @@ function setCardData(key,reportCard,cardData,product){
 async function sendAdminResponse(report_id,updatedResponse,updatedStatus){
     
     try {
-            const res = await fetch(`http://localhost:8081/api/requests/updateRequest`, {
+            const res = await fetch(`https://greenpaws-serverside.onrender.com/api/requests/updateRequest`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -220,7 +220,7 @@ async function getUserRequestFromServer(){
   const user_id = userData.user_id;
   
   try {
-    const response = await fetch(`http://localhost:8081/api/requests/${user_id}`, {
+    const response = await fetch(`https://greenpaws-serverside.onrender.com/api/requests/${user_id}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
@@ -244,7 +244,7 @@ async function getUserRequestFromServer(){
 }
 async function getRequestFromServer(){
     try {
-    const response = await fetch(`http://localhost:8081/api/requests/requests`, {
+    const response = await fetch(`https://greenpaws-serverside.onrender.com/api/requests/requests`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });

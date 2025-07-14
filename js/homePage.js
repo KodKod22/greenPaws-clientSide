@@ -170,7 +170,7 @@ function initializeLocationPoints(data){
     });
 }
 function getLocationsDataFromServer(){
-    fetch("http://localhost:8081/api/locations/Locations")
+    fetch("https://greenpaws-serverside.onrender.com/api/locations/Locations")
         .then(Response => Response.json())
         .then(data => initializeLocationPoints(data))
         .catch(error => {
@@ -180,7 +180,7 @@ function getLocationsDataFromServer(){
 async function getReportFromServer(){
     
   try {
-    const response = await fetch(`http://localhost:8081/api/requests/requests`, {
+    const response = await fetch(`https://greenpaws-serverside.onrender.com/api/requests/requests`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });

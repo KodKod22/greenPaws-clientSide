@@ -51,7 +51,7 @@ async function getDataFromServer(){
   const userData = JSON.parse(sessionStorage.getItem('userData'));
   const user_id = userData.user_id;
   try {
-    const response = await fetch(`http://localhost:8081/api/users/userRecycleStats?user_id=${user_id}`, {
+    const response = await fetch(`https://greenpaws-serverside.onrender.com/api/users/userRecycleStats?user_id=${user_id}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
@@ -74,7 +74,7 @@ async function getDataFromServer(){
 }
 async function getAllLocationsDataServer(){
   try {
-    const response = await fetch(`http://localhost:8081/api/statistics/locationsStats`, {
+    const response = await fetch(`https://greenpaws-serverside.onrender.com/api/statistics/locationsStats`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });

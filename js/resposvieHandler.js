@@ -171,7 +171,7 @@ async function sendSearchInput(searchValue) {
     }
 
     try {
-        const response = await fetch(`http://localhost:8081/api/locations/location?city=${encodeURIComponent(city)}&streetName=${encodeURIComponent(streetName)}`, {
+        const response = await fetch(`https://greenpaws-serverside.onrender.com/api/locations/location?city=${encodeURIComponent(city)}&streetName=${encodeURIComponent(streetName)}`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
         });

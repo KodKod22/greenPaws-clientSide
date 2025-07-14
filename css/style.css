@@ -775,7 +775,7 @@ h1 + img {
   
     .infoContainer {
         flex-direction: column;
-        margin-left: 0;
+        margin-left: 20px;
         gap: 60px;
         align-items: center;
     }

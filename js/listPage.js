@@ -53,19 +53,17 @@ async function getNewLocationData(){
     };
     
     try {
-    const response = await fetch("http://localhost:8081/api/locations/newLocation", {
+    const response = await fetch("https://greenpaws-serverside.onrender.com/api/locations/newLocation", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ newLocation })
     });
 
-    // קודם נבדוק אם המיקום כבר קיים
     if (response.status === 409) {
         alert("The location is already in the system.");
         return;
     }
 
-    // רק אם הכל תקין – נמשוך את המידע
     if (!response.ok) {
         const err = await response.json();
         throw new Error(err.message);
@@ -145,7 +143,7 @@ function setAddLocationModel() {
 }
 async function deleteLocation(locationId){
     try{
-        const response = await fetch(`http://localhost:8081/api/locations/removeLocation/${locationId}`,{
+        const response = await fetch(`https://greenpaws-serverside.onrender.com/api/locations/removeLocation/${locationId}`,{
             method:"DELETE",
 
         });
@@ -350,7 +348,7 @@ function changePageView(){
 }
 
 function getCardsDataFromServer(){
-    fetch("http://localhost:8081/api/locations/Locations")
+    fetch("https://greenpaws-serverside.onrender.com/api/locations/Locations")
         .then(Response => Response.json())
         .then(data => initializeListPage(data))
         .catch(error => {
