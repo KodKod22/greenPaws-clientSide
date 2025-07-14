@@ -59,7 +59,7 @@ function setCardData(key,reportCard,cardData,product){
                 cardData.style.display = "flex";
                 reportCard.appendChild(cardData);
                 break;
-            case "createat":
+            case "created_at":
                 cardData = document.createElement("span");
                 cardData.innerText = "Date: " + product[key];
                 reportCard.appendChild(cardData);
@@ -121,7 +121,6 @@ function setReportModel(userType,product,requestId){
             responseInput.placeholder = "Enter your response here...";
             responseInput.value = product.adminResponds || "";
 
-        // שדה סטטוס
             const statusLabel = document.createElement("label");
             statusLabel.classList.add("mt-3");
             statusLabel.innerText = "Change status:";
@@ -157,7 +156,7 @@ function setReportModel(userType,product,requestId){
         modalBody.appendChild(saveButton);
         } else {
             const adminResponse = document.createElement("p");
-            adminResponse.innerText = "Manager response: " + (product.adminrespons || "No manager response");
+            adminResponse.innerText = "Manager response: " + (product.admin_response || "No manager response");
             modalBody.appendChild(adminResponse);
         }
 
@@ -168,7 +167,7 @@ function setReportModel(userType,product,requestId){
 function createReportCard(product) {
     const requestId = product.requestid;
     const userData = JSON.parse(sessionStorage.getItem('userData'));
-    const userType = userData.userType;
+    const userType = userData.user_type;
     
     const ulFrag = document.createDocumentFragment();
     const reportCard = document.createElement("div");
@@ -192,8 +191,7 @@ function createReportCard(product) {
         });
 
         reportCard.appendChild(deleteBtn);
-        console.log(product.adminrespons);
-        if (product.adminrespons) {
+        if (product.admin_response) {
             
             const iconWrapper = document.createElement("div");
             iconWrapper.classList.add("icon-bell");
@@ -209,20 +207,21 @@ function createReportCard(product) {
     return ulFrag;
 }
 function  initializeReportPage(data) {
-    const listContiner = document.getElementsByClassName("listContiner")[0];
+    const listContainer = document.getElementsByClassName("listContainer")[0];
 
     for (const product of data) {
         const reportCard = createReportCard(product);
-        listContiner.appendChild(reportCard);
+        listContainer.appendChild(reportCard);
     }
 
-    document.getElementById("warraper").appendChild(listContiner);
+    document.getElementById("wrapper").appendChild(listContainer);
 }
 async function getUserRequestFromServer(){
   const userData = JSON.parse(sessionStorage.getItem('userData'));
-  const userId = userData.userId;
+  const user_id = userData.user_id;
+  
   try {
-    const response = await fetch(`http://localhost:8081/api/requests/${userId}`, {
+    const response = await fetch(`http://localhost:8081/api/requests/${user_id}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
@@ -234,7 +233,7 @@ async function getUserRequestFromServer(){
 
     const data = await response.json();
     if (Array.isArray(data) && data.length === 0) {
-      document.querySelector(".listContiner").innerText = "You don't have any reports yet.";
+      document.querySelector(".listContainer").innerText = "You don't have any reports yet.";
       return;
     }
 
@@ -258,7 +257,7 @@ async function getRequestFromServer(){
 
     const data = await response.json();
     if (Array.isArray(data) && data.length === 0) {
-      document.querySelector(".listContiner").innerText = "You don't have any reports yet.";
+      document.querySelector(".listContainer").innerText = "You don't have any reports yet.";
       return;
     }
 
@@ -270,7 +269,7 @@ async function getRequestFromServer(){
 }
 function setHomePage(){
     const userData = JSON.parse(sessionStorage.getItem('userData'));
-    const userType = userData.userType;
+    const userType = userData.user_type;
     
     if (userType === "admin") {
         getRequestFromServer();

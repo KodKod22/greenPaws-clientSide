@@ -153,10 +153,10 @@ async function deleteLocation(locationId){
 }
 function createLocationCard(product) {
     const userData = JSON.parse(sessionStorage.getItem('userData'));
-    const userType = userData.userType;
+    const userType = userData.user_type;
     const ulFrag = document.createDocumentFragment();
     const locationCard = document.createElement("a");
-    locationCard.href = `objectPage.html?locationId=${product.locationsid}`;
+    locationCard.href = `objectPage.html?locationId=${product.location_id}`;
     ulFrag.appendChild(locationCard);
 
     for (const key in product) {
@@ -178,7 +178,7 @@ function createLocationCard(product) {
                 cardData.classList.add(`icon-${key.toLowerCase()}`);
             }
             cardData.innerText = product[key];
-            if (key == "foodcapacity") {
+            if (key == "food_capacity") {
                 cardData.innerText = product[key] +"%";
             }
             locationCard.appendChild(cardData);
@@ -193,36 +193,36 @@ function createLocationCard(product) {
         deleteBtn.addEventListener("click", (e) => {
             e.stopPropagation();
             e.preventDefault();
-            deleteLocation(product.locationsid); 
+            deleteLocation(product.location_id); 
         });
 
         locationCard.appendChild(deleteBtn);
-       const addLocationbtn =   document.getElementById("addLocationbtn");
-        addLocationbtn.style.display = "block";
-        addLocationbtn.addEventListener("click",setAddLocationModel);
+       const addLocationBtn =   document.getElementById("addLocationBtn");
+        addLocationBtn.style.display = "block";
+        addLocationBtn.addEventListener("click",setAddLocationModel);
     }
 
     return ulFrag;
 }
 function  initializeListPage(data) {
 
-    const listContiner = document.getElementsByClassName("listContiner")[0];
+    const listContainer = document.getElementsByClassName("listContainer")[0];
 
     for (const product of data) {
         const locationCard = createLocationCard(product);
-        listContiner.appendChild(locationCard);
+        listContainer.appendChild(locationCard);
     }
 
-    document.getElementById("warraper").appendChild(listContiner);
+    document.getElementById("wrapper").appendChild(listContainer);
 }
-function displayCategoryMenu(catgoryButton) {
-    const menu = document.getElementById("catgoryMenu");
+function displayCategoryMenu(categoryButton) {
+    const menu = document.getElementById("categoryMenu");
     const modalElement = document.getElementById("exampleModal");
     const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
 
     if (window.innerWidth >= 375 && window.innerWidth <= 768) {
-        catgoryButton.setAttribute("data-bs-toggle", "modal");
-        catgoryButton.setAttribute("data-bs-target", "#exampleModal");
+        categoryButton.setAttribute("data-bs-toggle", "modal");
+        categoryButton.setAttribute("data-bs-target", "#exampleModal");
 
         modalInstance.show(); 
     } else {
@@ -230,7 +230,7 @@ function displayCategoryMenu(catgoryButton) {
         if (menu.style.display === "block") {
             menu.style.display = "none";
         } else {
-            const Container = document.getElementsByClassName("listContiner")[0];
+            const Container = document.getElementsByClassName("listContainer")[0];
             let locationList = Container.getElementsByTagName("a");
 
             for (const location of locationList) {
@@ -254,10 +254,10 @@ function changeLocationCardsDisplay(locationCards,value){
     
     for (const card of locationCards) {
         
-        const city = card.getElementsByClassName("icon-cityname")[0].innerText.toLowerCase();
+        const city = card.getElementsByClassName("icon-city_name")[0].innerText.toLowerCase();
         const street = card.getElementsByClassName("icon-street")[0].innerText.toLowerCase();
         
-        const food = card.getElementsByClassName("icon-animelfood")[0].innerText.toLowerCase();
+        const food = card.getElementsByClassName("icon-animal_food")[0].innerText.toLowerCase();
         const isActive = card.querySelector(".icon-active") !== null;
         const isInactive = card.querySelector(".icon-inactive") !== null;
         
@@ -269,13 +269,13 @@ function changeLocationCardsDisplay(locationCards,value){
     }
 }
 function searchByCategory(value){
-    const main = document.getElementsByClassName("listContiner")[0];
+    const main = document.getElementsByClassName("listContainer")[0];
     let locationCards = main.getElementsByTagName("a");
     changeLocationCardsDisplay(locationCards,value);
 }
 function searchLocation() {
     let inputField = document.getElementById("locationSourceBar");
-    const main = document.getElementsByClassName("listContiner")[0];
+    const main = document.getElementsByClassName("listContainer")[0];
     let locationCards = main.getElementsByTagName("a");
 
     let value = inputField.value.toLowerCase();
@@ -289,19 +289,19 @@ function addLocationToMap(lat, lng, product) {
         return;
     }
     const {
-        locationsid,
-        cityname,
+        location_id,
+        city_name,
         street,
-        animelfood,
+        animal_food,
         status,
-        foodcapacity
+        food_capacity
     } = product;
   const popupContent = `
-    <a href="objectPage.html?locationId=${locationsid}" style="color: black; text-decoration: none;">
-        <strong>${cityname}, ${street}</strong><br/>
-        <span><b>Food:</b> ${animelfood}</span><br/>
+    <a href="objectPage.html?locationId=${location_id}" style="color: black; text-decoration: none;">
+        <strong>${city_name}, ${street}</strong><br/>
+        <span><b>Food:</b> ${animal_food}</span><br/>
         <span><b>Status:</b> <span style="color:${status === 'active' ? 'green' : 'red'}">${status}</span></span><br/>
-        <span><b>Food level:</b> ${foodcapacity}</span>
+        <span><b>Food level:</b> ${food_capacity}</span>
     </a>`;
 
   L.marker([lat, lng])
@@ -319,7 +319,7 @@ function createMap(){
    pendingMarkers.forEach(m => addLocationToMap(m.lat, m.lng, m.product));
 }
 function changePageView(){
-    const main = document.getElementsByClassName("listContiner")[0];
+    const main = document.getElementsByClassName("listContainer")[0];
     const viewButton = document.getElementsByClassName("page-view-input")[0];
     const map = document.getElementById("map");
     
@@ -356,7 +356,7 @@ window.onload = () => {
 function setupEventListeners() {
     const modalElement = document.getElementById("exampleModal");
     const closeButton = document.getElementById("closeButton");
-    const categoryButton = document.getElementById("catgoryButton");
+    const categoryButton = document.getElementById("categoryButton");
     const searchBar = document.getElementById("locationSourceBar");
     const closeModalBtn = document.getElementsByClassName("btn-close")[0];
     const viewInput = document.getElementsByClassName("page-view-input")[0];
@@ -403,7 +403,7 @@ let wasSmallScreen = window.innerWidth <= 768;
 let isMenuOpenManually = false;
 
 window.addEventListener("resize", () => {
-    const menu = document.getElementById("catgoryMenu");
+    const menu = document.getElementById("categoryMenu");
     const CategoryText = document.getElementById("CategoryText");
     const modalElement = document.getElementById("exampleModal");
 

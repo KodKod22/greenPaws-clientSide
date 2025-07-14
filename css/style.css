@@ -28,7 +28,7 @@ ul {
     list-style: none;
     text-align: left;
 }
-#warraper {
+#wrapper {
     display: flex;
     flex-direction: column;
     
@@ -87,7 +87,7 @@ header {
     min-width: 100%;
     max-width: 100%;
 }
-.headerContiner {
+.headerContainer {
     display: flex;
     height: 116px;
     width: 100%;
@@ -171,7 +171,7 @@ header {
     height: 40px;
     border-radius: 50%;
 }
-#profileContiner > .btn > span {
+#profileContainer > .btn > span {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -192,7 +192,7 @@ svg {
     display: none;
     
 } 
-#warraper h1 {
+#wrapper h1 {
     font-weight: bold;
     font-family: Merriweather;
     font-size: 48px;
@@ -261,7 +261,7 @@ h1 + img {
     font-size: 20px;
     margin-right: 10px;
 }
-.listContiner {
+.listContainer {
     
     margin-top: 50px;
     display: flex;
@@ -271,7 +271,7 @@ h1 + img {
     align-items: center;
     margin-left: 70px;
 }
-.listContiner a {
+.listContainer a {
     display: flex;
     flex-direction: column;
     text-align:start;
@@ -283,16 +283,16 @@ h1 + img {
     justify-content: center;
     position: relative;
 }
-.listContiner a span {
+.listContainer a span {
     width: 100%;
     padding-left: 40px;
     display: flex;            
     align-items: center;
 }
-.listContiner a span:first-of-type {
+.listContainer a span:first-of-type {
     display: none;
 }
-.icon-foodcapacity {
+.icon-food_capacity {
     background-image: url("/images/level.svg");
     width: 31px;
     height: 31px;
@@ -321,14 +321,14 @@ h1 + img {
     right: 10px;
     position: absolute;
 }
-.icon-locationsid {
+.icon-location_id {
     background-image: url("/images/id.svg");
     width: 31px;
     height: 31px;
     background-repeat: no-repeat;
     background-size: contain;
 }
-.icon-cityname {
+.icon-city_name {
     background-image: url("/images/city.svg");
     width: 31px;
     height: 31px;
@@ -342,7 +342,7 @@ h1 + img {
     background-repeat: no-repeat;
     background-size: contain;
 }
-.icon-animelfood {
+.icon-animal_food {
     background-image: url("/images/food.svg");
     width: 31px;
     height: 31px;
@@ -364,21 +364,21 @@ h1 + img {
     background-size: contain;
 }
 
-#fillerSearchContiner {
+#fillerSearchContainer {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 50px;
     margin-left: 70px;
 }
-#fillerSearchContiner > button {
+#fillerSearchContainer > button {
     width: 194px;
     height: 40px;
     background-color: #fff;
     border: #000000 solid;
     border-radius: 10px;
 }
-#catgoryButton {
+#categoryButton {
     width: 194px;
     height: 40px;
     background-color: #fff;
@@ -400,7 +400,7 @@ h1 + img {
     margin-right: 10px;
 }
 
-#catgoryMenu {
+#categoryMenu {
     position: absolute;
     top: 100%;
     left: 0;
@@ -413,7 +413,7 @@ h1 + img {
     display: none;
 }
 
-#catgoryMenu > li {
+#categoryMenu > li {
     border: 1px solid #000;
     display: flex;
     align-items: center;
@@ -446,7 +446,7 @@ h1 + img {
     width: 20px;
     height: 20px;   
 }
-#catgoryMenu li > ul {
+#categoryMenu li > ul {
     position: absolute;
     top: 0;
     left: 100%; 
@@ -458,11 +458,11 @@ h1 + img {
     min-width: 160px;
 }
 
-#catgoryMenu li:hover > ul {
+#categoryMenu li:hover > ul {
     display: block;
 }
 
-#catgoryMenu li > ul li {
+#categoryMenu li > ul li {
     padding: 7px 8px;
     border: 1px solid #000;
     border-radius: 10px;
@@ -627,7 +627,7 @@ h1 + img {
     
 }
 
-.listContiner .reportCard {
+.listContainer .reportCard {
     display: flex;
     flex-direction: column;
     text-align:start;
@@ -638,7 +638,7 @@ h1 + img {
     border-radius: 20px;
     position: relative;
 }
-.listContiner .reportCard span {
+.listContainer .reportCard span {
     padding-left: 23px;
     width: 100%;
     display: flex;            
@@ -700,7 +700,7 @@ h1 + img {
 #addLocationForm {
     margin-top: 50px;    
 }
-#addLocationbtn {
+#addLocationBtn {
     display: none;
 }
 @media (min-width: 1000px) and (max-width: 1400px) {
@@ -728,7 +728,7 @@ h1 + img {
      #map {
         margin-left: 20px;
     }
-     #fillerSearchContiner {
+     #fillerSearchContainer {
         margin-left: 70px;
     }
 }
@@ -782,12 +782,12 @@ h1 + img {
         font-size: 24px;
        
     }
-    #fillerSearchContiner {
+    #fillerSearchContainer {
         margin-left: 0px;
         justify-content: center;
     }
   
-   .listContiner {
+   .listContainer {
     margin-left: 0px;
     justify-content: center;
    }
@@ -843,14 +843,14 @@ h1 + img {
     #asideBar.expanded .nav .nav-link span {
         display: inline;
     }
-    #asideBar.expanded > #profileContiner > .btn > span {
+    #asideBar.expanded > #profileContainer > .btn > span {
         display: inline;
     }
-    #profileContiner .btn span {
+    #profileContainer .btn span {
         display: none;
     }
 
-    #warraper {
+    #wrapper {
         margin: 0 auto; 
         overflow-x: hidden;
     }
@@ -920,14 +920,14 @@ h1 + img {
         padding-left: 70px;
         font-size: 14px;
     }
-    #warraper h1 {
+    #wrapper h1 {
         font-size: 24px;
         margin-top: 0px;
     }
     #navContainer {
         flex-direction: column; 
     }
-    #fillerSearchContiner {
+    #fillerSearchContainer {
         flex-direction: column;
         margin-left: 0px;
     }
@@ -961,7 +961,7 @@ h1 + img {
         height: 350px;
     }
        
-    #warraper h1 {
+    #wrapper h1 {
         font-size: 42px;
         margin-top: 0px;
     }

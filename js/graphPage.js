@@ -49,9 +49,9 @@ function setGraph(xValues, yValues) {
 
 async function getDataFromServer(){
   const userData = JSON.parse(sessionStorage.getItem('userData'));
-  const userId = userData.userId;
+  const user_id = userData.user_id;
   try {
-    const response = await fetch(`http://localhost:8081/api/users/userRecycleStats?userId=${userId}`, {
+    const response = await fetch(`http://localhost:8081/api/users/userRecycleStats?user_id=${user_id}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     });
@@ -97,7 +97,7 @@ async function getAllLocationsDataServer(){
 }
 function setPageView(){
     const userData = JSON.parse(sessionStorage.getItem('userData'));
-    const userType = userData.userType;
+    const userType = userData.user_type;
     
     if (userType === "admin") {
         getAllLocationsDataServer();

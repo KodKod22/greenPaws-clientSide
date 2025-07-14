@@ -1,13 +1,13 @@
 function setPageTitle(product){
     let oldPageTitle = document.getElementsByClassName("breadcrumb")[0];
-    oldPageTitle.children[0].innerText = product.street + " st " + product.cityname;
+    oldPageTitle.children[0].innerText = product.street + " st " + product.city_name;
 
     let pageRoadTrial = document.getElementsByClassName("breadcrumb")[1];
     let pagePosition = document.createElement("li");
     pagePosition.classList.add("breadcrumb-item", "active");
     let pagePositionTitle = document.createElement("a");
     pagePositionTitle.href = "listPage.html?pageTitle=Locations";
-    pagePositionTitle.innerText = product.street + " st " + product.cityname;
+    pagePositionTitle.innerText = product.street + " st " + product.city_name;
 
     pagePosition.appendChild(pagePositionTitle);
     pageRoadTrial.appendChild(pagePosition);
@@ -218,7 +218,7 @@ async function updateLocationOnServer(locationData){
 }
 function updateLocation(){
     const locationId = getObjectId();
-    const animalFoodValue = document.getElementById("inputAnimelFood").value.trim();
+    const animalFoodValue = document.getElementById("inputAnimalFood").value.trim();
     const selectStatusValue = document.getElementById("selectStatus").value;
     const foodLevel = document.getElementById("inputFoodLevel").value.trim();
 
@@ -232,14 +232,14 @@ function updateLocation(){
 }
 function changeTags(){
     const editBtn = document.querySelector(".editBt");
-    const spanAnimalFood = document.querySelector(".icon-animelfood");
+    const spanAnimalFood = document.querySelector(".icon-animal_food");
     const spanStatus = document.querySelector(".icon-active, .icon-inactive");
-    const spanFoodLevel = document.querySelector(".icon-foodcapacity")
+    const spanFoodLevel = document.querySelector(".icon-food_capacity")
     
-    const inputAnimelFood = document.createElement("input");
-    inputAnimelFood.placeholder = spanAnimalFood.innerText;
-    inputAnimelFood.id = "inputAnimelFood";
-    spanAnimalFood.replaceWith(inputAnimelFood);
+    const inputAnimalFood = document.createElement("input");
+    inputAnimalFood.placeholder = spanAnimalFood.innerText;
+    inputAnimalFood.id = "inputAnimalFood";
+    spanAnimalFood.replaceWith(inputAnimalFood);
 
      const selectStatus = document.createElement("select");
      selectStatus.id = "selectStatus";
@@ -272,28 +272,28 @@ function changeTags(){
 }
 function createLocationDataContainer(product) {
     const userData = JSON.parse(sessionStorage.getItem('userData'));
-    const userType = userData.userType;
+    const userType = userData.user_type;
     const locationDataContainer = document.createElement("section");
     
     locationDataContainer.classList.add("locationDataContainer");
 
     for (const key in product) {
-        if (key === "cityname" || key === "landmarks") {
+        if (key === "city_name" || key === "landmarks") {
             continue;
         }
         let dataLine = document.createElement("span");
         switch (key) {
-            case "locationsid":
+            case "location_id":
               dataLine.innerText = "container id: " + product[key];
-              dataLine.classList.add("icon-locationsid");
+              dataLine.classList.add("icon-location_id");
             break;
             case "street":
-                dataLine.innerText = product[key] + " street " + product["cityname"];
+                dataLine.innerText = product[key] + " street " + product["city_name"];
                 dataLine.classList.add("icon-street");
             break;
-            case "animelfood":
+            case "animal_food":
                 dataLine.innerText = product[key];
-                dataLine.classList.add("icon-animelfood");
+                dataLine.classList.add("icon-animal_food");
             break;
             case "status":
                 dataLine.innerText = product[key];
@@ -307,9 +307,9 @@ function createLocationDataContainer(product) {
                     dataLine.style.color = "#FF0000";
                 }
             break;
-            case "foodcapacity":
+            case "food_capacity":
                 dataLine.innerText = "food level: " + product[key]+"%";
-                dataLine.classList.add("icon-foodcapacity");
+                dataLine.classList.add("icon-food_capacity");
             break;
         }
         locationDataContainer.appendChild(dataLine);
@@ -356,8 +356,8 @@ function setLocationData(product) {
     
     mainPageContainer.appendChild(mapSection);
 
-    document.getElementById("warraper").appendChild(pageHeadLine);
-    document.getElementById("warraper").appendChild(mainPageContainer);
+    document.getElementById("wrapper").appendChild(pageHeadLine);
+    document.getElementById("wrapper").appendChild(mainPageContainer);
     
     createMap(product.landmarks);
 }
@@ -373,12 +373,12 @@ function loadPageObject() {
 }
 function sendToServerNumBottles(){
     const bottlesValue = document.getElementById("bottles").value;
-    console.log(bottlesValue);
+    
     const locationId = getObjectId();
-     console.log(locationId);
+    
     const userData = JSON.parse(sessionStorage.getItem('userData'));
     const userId = userData.userId;
-    console.log(userId)
+    
     fetch("http://localhost:8081/api/locations/addBottles",{
         method:"POST",
         headers:{

@@ -18,7 +18,6 @@ function getPageTitle() {
 async function getNewLocationData(event){
     event.preventDefault();
     const city = document.getElementById("cityName").value;
-    console.log(city);
     const street = document.getElementById("streetName").value;
     const animalFood = document.getElementById("animalFood").value;
     const status = document.getElementById("status").value;

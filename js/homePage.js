@@ -114,7 +114,7 @@ function renderRequests(reports){
     container.appendChild(list);
 }
 function initializeUserHomePage() {
-    const warraper = document.getElementById("warraper");
+    const wrapper = document.getElementById("wrapper");
     const pageTitle = document.createElement("h1");
     const dogAndCatImg = document.createElement("img");
     let userNavContainer = document.createElement("div");
@@ -125,9 +125,9 @@ function initializeUserHomePage() {
     dogAndCatImg.alt = "dog and Cat";
     userNavContainer = userNavContainerCreator();
     
-    warraper.appendChild(pageTitle);
-    warraper.appendChild(dogAndCatImg);
-    warraper.appendChild(userNavContainer);
+    wrapper.appendChild(pageTitle);
+    wrapper.appendChild(dogAndCatImg);
+    wrapper.appendChild(userNavContainer);
 }
 function addLocationToMap(lat, lng, product) {
     if (!map) {
@@ -135,19 +135,19 @@ function addLocationToMap(lat, lng, product) {
         return;
     }
     const {
-        locationsid,
-        cityname,
+        location_id,
+        city_name,
         street,
-        animelfood,
+        animal_food,
         status,
-        foodcapacity
+        food_capacity
     } = product;
   const popupContent = `
-    <a href="objectPage.html?locationId=${locationsid}" style="color: black; text-decoration: none;">
-        <strong>${cityname}, ${street}</strong><br/>
-        <span><b>Food:</b> ${animelfood}</span><br/>
+    <a href="objectPage.html?locationId=${location_id}" style="color: black; text-decoration: none;">
+        <strong>${city_name}, ${street}</strong><br/>
+        <span><b>Food:</b> ${animal_food}</span><br/>
         <span><b>Status:</b> <span style="color:${status === 'active' ? 'green' : 'red'}">${status}</span></span><br/>
-        <span><b>Food level:</b> ${foodcapacity}</span>
+        <span><b>Food level:</b> ${food_capacity}</span>
     </a>`;
 
   L.marker([lat, lng])
@@ -192,7 +192,7 @@ async function getReportFromServer(){
 
     const data = await response.json();
     if (Array.isArray(data) && data.length === 0) {
-      document.querySelector(".listContiner").innerText = "You don't have any reports yet.";
+      document.querySelector(".listContainer").innerText = "You don't have any reports yet.";
       return;
     }
 
@@ -203,7 +203,7 @@ async function getReportFromServer(){
   }
 }
 function initializeAdminHomePage(){
-    const warraper = document.getElementById("warraper");
+    const wrapper = document.getElementById("wrapper");
     let userNavContainer = document.createElement("div");
     const infoContainer = document.createElement("section");
     infoContainer.classList.add("infoContainer");
@@ -228,14 +228,14 @@ function initializeAdminHomePage(){
     infoContainer.appendChild(mapWrapper);
     
     
-    warraper.appendChild(infoContainer);
-    warraper.appendChild(userNavContainer);
+    wrapper.appendChild(infoContainer);
+    wrapper.appendChild(userNavContainer);
     createMap();
     getReportFromServer();
 }
 function setHomePage(){
     const userData = JSON.parse(sessionStorage.getItem('userData'));
-    const userType = userData.userType;
+    const userType = userData.user_type;
     
     if (userType === "admin") {
         initializeAdminHomePage();

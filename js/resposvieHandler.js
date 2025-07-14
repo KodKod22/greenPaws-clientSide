@@ -41,12 +41,12 @@ function highlightCurrentSidebarLink() {
    }   
 function setUserProfile(){
       const userData = JSON.parse(sessionStorage.getItem('userData'));
-        if (userData && userData.userImag) {
+        if (userData && userData.image_trace) {
             const profilePic = document.querySelector('.profilePlaceHolder img');
-            profilePic.src = userData.userImag; 
+            profilePic.src = userData.image_trace; 
             const profileUserName = document.querySelector('.profilePlaceHolder span');
-            profileUserName.innerText = userData.userName;
-            console.log('Profile picture updated to:', userData.userImag);
+            profileUserName.innerText = userData.user_name;
+            
         } else {
             console.error('No profile image found or userData is not set.'); 
         }
@@ -92,7 +92,7 @@ function setAdminSideBar(sideBar){
                     <span>notifications</span>
                 </a>
             </nav>
-            <section id="profileContiner" class="dropup-center dropup">
+            <section id="profileContainer" class="dropup-center dropup">
                 <section class="btn profilePlaceHolder" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="">
                     <span></span>
@@ -139,7 +139,7 @@ function setUserSideBar(sideBar){
                     <span>reports</span>
                 </a>
             </nav>
-            <section id="profileContiner" class="dropup-center dropup">
+            <section id="profileContainer" class="dropup-center dropup">
                 <section class="btn profilePlaceHolder" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="">
                     <span></span>
@@ -155,7 +155,7 @@ function setUserSideBar(sideBar){
 function changeSidebar(){
     const sideBar = document.getElementById("asideBar");
     const userData = JSON.parse(sessionStorage.getItem('userData'));
-    const userType = userData.userType;
+    const userType = userData.user_type;
     
     if (userType === "admin") {
         setAdminSideBar(sideBar);
@@ -188,7 +188,7 @@ async function sendSearchInput(searchValue) {
             return;
         }
 
-        const locationId = data[0].locationsid;
+        const locationId = data[0].location_id;
         window.location.href = `objectPage.html?locationId=${locationId}`;
     } catch (error) {
         console.error("Request fetch error:", error.message);
