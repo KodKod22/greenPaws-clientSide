@@ -37,6 +37,7 @@ ul {
 nav.flex-column.nav-pills a span {
     color: #000000;
     font-family: Nunito;
+    width: 89px;
 }
 
 .nav-link:focus, .nav-link:hover {
@@ -55,6 +56,7 @@ nav.flex-column.nav-pills .nav-link.active, .nav-pills .nav-link.active{
   align-items: center;
   gap: 12px; 
   padding: 12px 12px;
+  color: #000;
 }
 
 .nav-link svg {
@@ -473,7 +475,7 @@ h1 + img {
     background-position: 10px center;
     background-size: 30px 30px;
     position: absolute;
-    top: 8px;
+    top: 30px;
     right: 8px;
     border-radius: 50%;
     padding: 23px;
@@ -788,7 +790,7 @@ h1 + img {
     }
   
    .listContainer {
-    margin-left: 0px;
+    margin-left: 10px;
     justify-content: center;
    }
     #toggleSidebar {
@@ -851,7 +853,6 @@ h1 + img {
     }
 
     #wrapper {
-        margin: 0 auto; 
         overflow-x: hidden;
     }
 
@@ -896,7 +897,12 @@ h1 + img {
 }
 
 @media (min-width: 360px) and (max-width: 767px) { 
-    
+    h4 {
+        font-size: 12px;
+    }
+    #notificationsList {
+        height: 90%;
+    }
       #sectionMap {
         width: 250px;
         height: 250px;

@@ -15,11 +15,10 @@ function getPageTitle() {
     pagePosition.appendChild(pagePositionTitle);
     pageRoadTrial.appendChild(pagePosition);
 }
-async function deleteRequest(requestId){
+async function deleteRequest(report_id){
     try{
-        const response = await fetch(`http://localhost:8081/api/requests/deleteRequest/${requestId}`,{
+        const response = await fetch(`http://localhost:8081/api/requests/deleteRequest/${report_id}`,{
             method:"DELETE",
-
         });
         if (!response.ok) {
             const err = await response.json();
@@ -64,7 +63,7 @@ function setCardData(key,reportCard,cardData,product){
                 cardData.innerText = "Date: " + product[key];
                 reportCard.appendChild(cardData);
                 break;
-            case "requestid":
+            case "report_id":
                 reportCard.setAttribute("Report_ID", product[key]);
                 break;
             case "username":
@@ -76,8 +75,8 @@ function setCardData(key,reportCard,cardData,product){
                 break; 
         }
 }
-async function sendAdminResponse(requestId,updatedResponse,updatedStatus){
-    console.log(requestId);
+async function sendAdminResponse(report_id,updatedResponse,updatedStatus){
+    
     try {
             const res = await fetch(`http://localhost:8081/api/requests/updateRequest`, {
                 method: "PUT",
@@ -85,9 +84,9 @@ async function sendAdminResponse(requestId,updatedResponse,updatedStatus){
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    requestId: requestId,
+                    report_id: report_id,
                     status: updatedStatus,
-                    adminResponds: updatedResponse
+                    admin_responds: updatedResponse
                 })
             });
 
@@ -103,7 +102,7 @@ async function sendAdminResponse(requestId,updatedResponse,updatedStatus){
             alert("Failed to update report: " + error.message);
         }
 }
-function setReportModel(userType,product,requestId){
+function setReportModel(userType,product,report_id){
      const modalBody = document.getElementById("reportModalBody");
 
         modalBody.innerHTML = "";
@@ -150,7 +149,7 @@ function setReportModel(userType,product,requestId){
         saveButton.addEventListener("click", async () => {
             const updatedResponse = responseInput.value;
             const updatedStatus = statusSelect.value;
-             sendAdminResponse(requestId, updatedResponse, updatedStatus); 
+             sendAdminResponse(report_id, updatedResponse, updatedStatus); 
         });
 
         modalBody.appendChild(saveButton);
@@ -165,7 +164,7 @@ function setReportModel(userType,product,requestId){
 
 }
 function createReportCard(product) {
-    const requestId = product.requestid;
+    const report_id = product.report_id;
     const userData = JSON.parse(sessionStorage.getItem('userData'));
     const userType = userData.user_type;
     
@@ -187,7 +186,7 @@ function createReportCard(product) {
         deleteBtn.addEventListener("click", (e) => {
             e.stopPropagation();
             e.preventDefault();
-            deleteRequest(requestId); 
+            deleteRequest(report_id); 
         });
 
         reportCard.appendChild(deleteBtn);
@@ -201,7 +200,7 @@ function createReportCard(product) {
     }
 
     reportCard.addEventListener("click", () => {
-        setReportModel(userType,product,requestId);
+        setReportModel(userType,product,report_id);
     });
     
     return ulFrag;

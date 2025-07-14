@@ -96,7 +96,7 @@ function renderRequests(reports){
     newReports.forEach(report =>{
         const item = document.createElement("li");
         const title = document.createElement("h4");
-        title.innerText = `${report.username} | ${report.street}`;
+        title.innerText = `${report.user_name} | ${report.street}`;
         const status = document.createElement("span");
         status.style.color = "#A8D5BA";
         status.innerText = report.status;

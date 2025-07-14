@@ -42,7 +42,7 @@ async function getNewLocationData(){
     const city = document.getElementById("cityName").value;
     
     const street = document.getElementById("streetName").value;
-    const animalFood = document.getElementById("animalFood").value;
+    const animalFood = document.getElementById("animalFood").value.toLowerCase();
     const status = document.getElementById("status").value;
     
     const newLocation = {
@@ -51,23 +51,33 @@ async function getNewLocationData(){
         animalFood: animalFood,
         status: status
     };
-    try{
-        const response = await fetch("http://localhost:8081/api/locations/newLocation", {
+    
+    try {
+    const response = await fetch("http://localhost:8081/api/locations/newLocation", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({newLocation})
+        body: JSON.stringify({ newLocation })
     });
+
+    // קודם נבדוק אם המיקום כבר קיים
+    if (response.status === 409) {
+        alert("The location is already in the system.");
+        return;
+    }
+
+    // רק אם הכל תקין – נמשוך את המידע
     if (!response.ok) {
-      const err = await response.json();
-      throw new Error(err.message);
+        const err = await response.json();
+        throw new Error(err.message);
     }
 
     alert("The new location has been submitted successfully.");
     location.reload();
-    }catch(error){
-         console.error("Form send error:", error.message);
-        alert("Failed to send From: " + error.message);
-    }
+
+} catch (error) {
+    console.error("Form send error:", error.message);
+    alert("Failed to send form: " + error.message);
+}
 }
 function setAddLocationModel() {
     const modalBody = document.getElementById("addLocationModalBody");
@@ -361,7 +371,12 @@ function setupEventListeners() {
     const closeModalBtn = document.getElementsByClassName("btn-close")[0];
     const viewInput = document.getElementsByClassName("page-view-input")[0];
     const clickableSpans = document.querySelectorAll(".clickableSpan");
-    
+    document.querySelectorAll(".btn-close").forEach(btn => {
+        btn.addEventListener("click",()=>{
+            document.activeElement.blur();
+        })
+    });
+   
     categoryButton.addEventListener("click", e => displayCategoryMenu(e.target));
     searchBar.addEventListener("input", searchLocation);
     viewInput.addEventListener("click", changePageView);

@@ -20,6 +20,17 @@ function getObjectId() {
 }
 function setLocationChart(locationChart){
     const ctx = document.getElementById("locationChart");
+    const noDataText = document.getElementById("noDataText");
+
+    if (locationChart === undefined) {
+        ctx.style.display = "none";
+        noDataText.style.display = "block";
+        return;
+    }
+
+    ctx.style.display = "block";
+    noDataText.style.display = "none";
+
   new Chart(ctx, {
     type: "bar",
     data: {
@@ -50,28 +61,53 @@ async function getChartLocationData() {
     try {
         const locationId = getObjectId();
         const response = await fetch(`http://localhost:8081/api/statistics/locationStats/${locationId}`);
+
         if (!response.ok) {
-            throw new Error("Failed to fetch chart data");
+            const errData = await response.json().catch(() => ({}));
+            const errMsg = errData.message || "Failed to fetch chart data";
+            throw new Error(errMsg);
         }
+
         const data = await response.json();
+
+       if (!data || !Array.isArray(data) || data.length === 0) {
+            alert("No data to display.");
+            setLocationChart(undefined);
+            return;
+        }
+
         const locationChart = data[0];
         setLocationChart(locationChart);
+
     } catch (error) {
         console.error("Error fetching chart data:", error.message);
     }
 }
-function setChartModel(){
+function setChartModel() {
     const modalBody = document.getElementById("modalBody");
     const modelHeader = document.getElementById("modalHeader");
-    document.getElementById("modalFooter").innerHTML="";
-    modelHeader.getElementsByTagName("h5")[0].innerText = "Location chart"
+    const modalFooter = document.getElementById("modalFooter");
+
+    modalFooter.innerHTML = "";
+    modelHeader.getElementsByTagName("h5")[0].innerText = "Location chart";
+    modalBody.innerHTML = "";
+
     const locationChart = document.createElement("canvas");
     locationChart.id = "locationChart";
     locationChart.width = 400;
     locationChart.height = 300;
-    modalBody.innerHTML = "";
+
+    const noDataText = document.createElement("p");
+    noDataText.id = "noDataText";
+    noDataText.innerText = "No recycling activity available for this location.";
+    noDataText.style.display = "none";
+    noDataText.style.textAlign = "center";
+    noDataText.style.fontWeight = "bold";
+    noDataText.style.marginTop = "20px";
 
     modalBody.appendChild(locationChart);
+    modalBody.appendChild(noDataText);
+
     const modal = new bootstrap.Modal(document.getElementById("modal"));
     modal.show();
 }
@@ -152,9 +188,10 @@ function setUserInterface(productStatus){
     buttonsContainer.appendChild(reportBottlesBt);
     return buttonsContainer;
 }
-async function deleteLocation(locationId){
+async function deleteLocation(location_id){
+    console.log(location_id);
       try{
-        const response = await fetch(`http://localhost:8081/api/locations/removeLocation/${locationId}`,{
+        const response = await fetch(`http://localhost:8081/api/locations/removeLocation/${location_id}`,{
             method:"DELETE",
 
         });
@@ -163,7 +200,7 @@ async function deleteLocation(locationId){
             throw new Error(err.message);
         }
         alert("Location deleted successfully.");
-        window.location.assign(document.referrer);
+        window.location.href = "listPage.html?pageTitle=Locations"
     } catch (err) {
         console.error("Delete request error:", err.message);
         alert("Failed to delete location: " + err.message);
@@ -377,7 +414,7 @@ function sendToServerNumBottles(){
     const locationId = getObjectId();
     
     const userData = JSON.parse(sessionStorage.getItem('userData'));
-    const userId = userData.userId;
+    const userId = userData.user_id;
     
     fetch("http://localhost:8081/api/locations/addBottles",{
         method:"POST",
@@ -407,19 +444,20 @@ function sendToServerNumBottles(){
     });
 }
 async function sendToServerReport(data) {
-    console.log("Sending data to server:", data);
+    
     try{
         const response = await fetch("http://localhost:8081/api/requests/addRequest", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            userId: data.userId,
-            locationId: Number(data.locationId),
+            user_id: data.user_id,
+            location_id: Number(data.location_id),
             description: data.description.trim()
         })
     });
     if (!response.ok) {
       const err = await response.json();
+      console.error("Server said:", err);
       throw new Error(err.message);
     }
 
@@ -431,17 +469,17 @@ async function sendToServerReport(data) {
 }
 function  getDataToSend(locationId){
     const userData = JSON.parse(sessionStorage.getItem("userData"));
-    const userId = userData?.userId;
+    const user_id = userData?.user_id;
 
     const otherText =  document.getElementById("complaint").value.trim();
     let description = "";
     description = otherText;
     
-    const data ={
-        userId:userId,
-        locationId:Number(locationId),
+    const data = {
+        user_id: user_id,
+        location_id: Number(locationId),
         description
-    }
+    };
     sendToServerReport(data)
 }
 window.onload = () => {
