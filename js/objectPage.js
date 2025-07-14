@@ -422,9 +422,9 @@ function sendToServerNumBottles(){
             "Content-Type": "application/json"
         },
         body:JSON.stringify({
-            userId:Number(userId),
-            locationId:Number(locationId), 
-            bottleCount:Number(bottlesValue)
+            user_id:Number(userId),
+            location_id:Number(locationId), 
+            bottle_count:Number(bottlesValue)
         })
     })
      .then(async response => {
@@ -508,4 +508,5 @@ window.onload = () => {
             document.activeElement.blur();
         });
     });  
+    
 }

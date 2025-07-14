@@ -164,7 +164,7 @@ function changeSidebar(){
     }
 }
 async function sendSearchInput(searchValue) {
-    const [city, streetName] = searchValue.split(",").map(s => s.trim());
+    const [city, streetName] = searchValue.split(",").map(s => s.toLowerCase().trim());
     if (city == undefined || streetName == undefined) {
         alert("Enter city and street");
         return;

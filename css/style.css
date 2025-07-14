@@ -536,9 +536,11 @@ h1 + img {
 }
 .locationDataContainer span {
     width: 100%;
-    padding-left: 100px;
-    padding-top: 15px;
+    margin-left: 6px;
+    padding-left: 75px;
+    margin-top: 15px;
     height: 100%;
+    text-align: left;
 }
 .buttonsContainer {
     display: flex;
@@ -695,6 +697,7 @@ h1 + img {
     top: 10px;
     right: 10px;
     padding-left: 30px;
+    font-size: 24px;
 }
 .formContainer {
     margin-left: 150px;
@@ -897,6 +900,20 @@ h1 + img {
 }
 
 @media (min-width: 360px) and (max-width: 767px) { 
+    
+      .editBt {
+        top: 45px;
+        font-size: 0;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        background-color: transparent;
+        background-image: url('/images/report.svg');
+        background-repeat: no-repeat;
+        background-size: 24px 24px;
+        background-position: center;
+        background-color: #A8D5BA;
+    }
     h4 {
         font-size: 12px;
     }
@@ -951,7 +968,7 @@ h1 + img {
         width: 250px;
         height: 70px;
         font-size: 24px;
-        padding-left:20px ;
+        padding-left:38px ;
     }
 }
 
