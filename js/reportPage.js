@@ -66,7 +66,7 @@ function setCardData(key,reportCard,cardData,product){
             case "report_id":
                 reportCard.setAttribute("Report_ID", product[key]);
                 break;
-            case "username":
+            case "user_name":
                 cardData = document.createElement("span");
                 cardData.innerText = "User: " + product[key];
                 reportCard.appendChild(cardData);
