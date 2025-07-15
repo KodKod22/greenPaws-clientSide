@@ -258,12 +258,12 @@ function updateLocation(){
     const animalFoodValue = document.getElementById("inputAnimalFood").value.trim();
     const selectStatusValue = document.getElementById("selectStatus").value;
     const foodLevel = document.getElementById("inputFoodLevel").value.trim();
-
+    console.log(foodLevel);
     const locationData = {
-        locationId:locationId,
-        animalFood:animalFoodValue || undefined,
+        location_id:locationId,
+        animal_food:animalFoodValue || undefined,
         status:selectStatusValue,
-        foodCapacity:foodLevel || undefined
+        food_capacity:Number(foodLevel) || undefined
     }
     updateLocationOnServer(locationData);
 }

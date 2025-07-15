@@ -537,10 +537,11 @@ h1 + img {
 .locationDataContainer span {
     width: 100%;
     margin-left: 6px;
-    padding-left: 75px;
-    margin-top: 15px;
+    padding-left: 86px;
     height: 100%;
     text-align: left;
+     display: block;
+  margin-top: 10px;
 }
 .buttonsContainer {
     display: flex;
@@ -559,15 +560,17 @@ h1 + img {
 .buttonsContainer button:first-of-type {
     background-color:  #A8D5BA;;
 }
-#map {
+.mapWrapper {
     display: none;
-    width: 735px;
-    height: 628px;
-    margin-left: 70px;
-    border-radius: 20px;
-    margin-top: 69px;
-    margin-bottom: 123px;
-    z-index: 1; 
+    justify-content: center;
+    margin-top: 20px;
+    margin-left: 100px;
+}
+#map {
+    height: 400px;
+    width: 90%;
+    max-width: 900px;
+    border-radius: 15px;
 }
 #objectMap {
     display: block;
@@ -772,6 +775,9 @@ h1 + img {
     .formContainer {
         margin-left: 0;
     }
+    .mapWrapper {
+        margin-left: 0;
+    }
   
     .infoContainer {
         flex-direction: column;
@@ -784,7 +790,7 @@ h1 + img {
     }
   
     .locationDataContainer span {
-        font-size: 24px;
+        font-size: 20px;
        
     }
     #fillerSearchContainer {
@@ -902,7 +908,7 @@ h1 + img {
 @media (min-width: 360px) and (max-width: 767px) { 
     
       .editBt {
-        top: 45px;
+        top: 35px;
         font-size: 0;
         width: 40px;
         height: 40px;
@@ -929,10 +935,10 @@ h1 + img {
         width: 200px;
         height: 200px;
     }
-      #map {
+    #map {
         width: 200px;
         height: 70vh;
-        margin-left: 20px;
+        margin-left: 0;
     }
     #logo {
         height: 60px;
@@ -951,7 +957,6 @@ h1 + img {
         flex-direction: column; 
     }
     #fillerSearchContainer {
-        flex-direction: column;
         margin-left: 0px;
     }
      .locationDataContainer {

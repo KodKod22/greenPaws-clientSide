@@ -225,12 +225,12 @@ function  initializeListPage(data) {
 }
 function displayCategoryMenu(categoryButton) {
     const menu = document.getElementById("categoryMenu");
-    const modalElement = document.getElementById("exampleModal");
+    const modalElement = document.getElementById("categoryModal");
     const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
 
     if (window.innerWidth >= 375 && window.innerWidth <= 768) {
         categoryButton.setAttribute("data-bs-toggle", "modal");
-        categoryButton.setAttribute("data-bs-target", "#exampleModal");
+        categoryButton.setAttribute("data-bs-target", "#categoryModal");
 
         modalInstance.show(); 
     } else {
@@ -329,7 +329,7 @@ function createMap(){
 function changePageView(){
     const main = document.getElementsByClassName("listContainer")[0];
     const viewButton = document.getElementsByClassName("page-view-input")[0];
-    const map = document.getElementById("map");
+    const map = document.querySelector(".mapWrapper");
     
     if(main.style.display === "none"){
         viewButton.classList.remove("icon-list");
@@ -342,7 +342,7 @@ function changePageView(){
         viewButton.classList.add("icon-list");
         viewButton.innerText = "list view"
         main.style.display = "none";
-        map.style.display = "block";
+        map.style.display = "flex";
         createMap()
     }
 }
@@ -362,13 +362,20 @@ window.onload = () => {
 };
 
 function setupEventListeners() {
-    const modalElement = document.getElementById("exampleModal");
+    const modalElement = document.getElementById("categoryModal");
     const closeButton = document.getElementById("closeButton");
     const categoryButton = document.getElementById("categoryButton");
     const searchBar = document.getElementById("locationSourceBar");
     const closeModalBtn = document.getElementsByClassName("btn-close")[0];
     const viewInput = document.getElementsByClassName("page-view-input")[0];
     const clickableSpans = document.querySelectorAll(".clickableSpan");
+    const setChoiceBtn = document.querySelector(".btn.btn-success");
+    setChoiceBtn.addEventListener("click",()=>{
+        const main = document.getElementsByClassName("listContainer")[0];
+        let locationCards = main.getElementsByTagName("a");
+        checkInputContent("",locationCards);
+        document.activeElement.blur();
+    })
     document.querySelectorAll(".btn-close").forEach(btn => {
         btn.addEventListener("click",()=>{
             document.activeElement.blur();
@@ -418,7 +425,7 @@ let isMenuOpenManually = false;
 window.addEventListener("resize", () => {
     const menu = document.getElementById("categoryMenu");
     const CategoryText = document.getElementById("CategoryText");
-    const modalElement = document.getElementById("exampleModal");
+    const modalElement = document.getElementById("categoryModal");
 
     let modalInstance = bootstrap.Modal.getInstance(modalElement);
     if (!modalInstance) {
@@ -430,7 +437,7 @@ window.addEventListener("resize", () => {
     if (isSmallScreen && !wasSmallScreen) {
         
         CategoryText.setAttribute("data-bs-toggle", "modal");
-        CategoryText.setAttribute("data-bs-target", "#exampleModal");
+        CategoryText.setAttribute("data-bs-target", "#categoryModal");
 
         if (menu.style.display === "block") {
             modalInstance.show();
