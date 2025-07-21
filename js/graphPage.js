@@ -1,3 +1,4 @@
+let userType;
 function getPageTitle() {
     const aKeyValue = window.location.search.substring(1).split('&');
     const newPageTitle = aKeyValue[0].split("=")[1];
@@ -16,6 +17,12 @@ function getPageTitle() {
     pageRoadTrial.appendChild(pagePosition);
 }
 function setGraph(xValues, yValues) {
+  let label;
+  if (userType === "admin") {
+    label  = "locations statistics"
+  }else{
+    label = "my monthly recycle activity"
+  }
   
   const ctx = document.getElementById("myChart");
   new Chart(ctx, {
@@ -23,7 +30,7 @@ function setGraph(xValues, yValues) {
     data: {
       labels: xValues,
       datasets: [{
-        label: "my monthly recycle activity",
+        label: label,
         backgroundColor: "green",
         data: yValues
       }]
@@ -50,6 +57,7 @@ function setGraph(xValues, yValues) {
 async function getDataFromServer(){
   const userData = JSON.parse(sessionStorage.getItem('userData'));
   const user_id = userData.user_id;
+
   try {
     const response = await fetch(`https://greenpaws-serverside.onrender.com/api/users/userRecycleStats?user_id=${user_id}`, {
       method: "GET",
@@ -65,7 +73,6 @@ async function getDataFromServer(){
 
     let xValues = data.map((entry) => entry.street);
     let yValues = data.map((entry) => Number(entry.total_bottles));
-
     setGraph(xValues, yValues);
   } catch (error) {
     console.error("Graph fetch error:", error.message);
@@ -97,7 +104,7 @@ async function getAllLocationsDataServer(){
 }
 function setPageView(){
     const userData = JSON.parse(sessionStorage.getItem('userData'));
-    const userType = userData.user_type;
+    userType = userData.user_type;
     
     if (userType === "admin") {
         getAllLocationsDataServer();
