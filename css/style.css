@@ -567,8 +567,8 @@ h1 + img {
     margin-left: 100px;
 }
 #map {
-    height: 400px;
-    width: 90%;
+    height: 600px;
+    width: 100%;
     max-width: 900px;
     border-radius: 15px;
 }
@@ -788,10 +788,10 @@ h1 + img {
     #objectMap {
         display: none;
     }
-  
+    
     .locationDataContainer span {
         font-size: 20px;
-       
+       margin-top: 14px;
     }
     #fillerSearchContainer {
         margin-left: 0px;
@@ -936,7 +936,7 @@ h1 + img {
         height: 200px;
     }
     #map {
-        width: 200px;
+        width: 80%;
         height: 70vh;
         margin-left: 0;
     }
@@ -979,7 +979,10 @@ h1 + img {
 
 
 @media (min-width: 768px) and (max-width: 992px) {
-      #sectionMap {
+    .mapWrapper {
+        width: 90%;
+    }
+    #sectionMap {
         width: 350px;
         height: 350px;
         

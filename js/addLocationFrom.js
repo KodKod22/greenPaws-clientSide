@@ -35,6 +35,11 @@ async function getNewLocationData(event){
         body: JSON.stringify({newLocation})
     });
     if (!response.ok) {
+        if (response.status === 409) {
+            alert("The location is all ready in the data base.");
+            location.reload();
+            return;
+        }
       const err = await response.json();
       throw new Error(err.message);
     }

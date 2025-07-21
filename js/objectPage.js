@@ -27,7 +27,7 @@ function setLocationChart(locationChart){
         noDataText.style.display = "block";
         return;
     }
-
+    console.log(locationChart.total_bottles);
     ctx.style.display = "block";
     noDataText.style.display = "none";
 
@@ -38,7 +38,7 @@ function setLocationChart(locationChart){
       datasets: [{
         label: "The location recycle activity",
         backgroundColor: "green",
-        data: locationChart.total_bottles
+        data: [locationChart.total_bottles]
       }]
     },
     options: {
