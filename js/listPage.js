@@ -58,13 +58,18 @@ async function getNewLocationData(){
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ newLocation })
     });
-
-    if (response.status === 409) {
-        alert("The location is already in the system.");
-        return;
-    }
-
+     if (response.status === 409) {
+            alert("The location is all ready in the data base.");
+            location.reload();
+            return;
+        }
     if (!response.ok) {
+       
+        if(response.status === 400){
+            alert("City or location spelling error.");
+            location.reload();
+            return;
+        }
         const err = await response.json();
         throw new Error(err.message);
     }

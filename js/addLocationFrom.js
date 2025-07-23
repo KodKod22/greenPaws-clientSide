@@ -40,6 +40,11 @@ async function getNewLocationData(event){
             location.reload();
             return;
         }
+        if(response.status === 400){
+            alert("City or location spelling error.");
+            location.reload();
+            return;
+        }
       const err = await response.json();
       throw new Error(err.message);
     }
