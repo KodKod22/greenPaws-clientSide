@@ -274,7 +274,7 @@ function changeLocationCardsDisplay(locationCards,value){
         const isActive = card.querySelector(".icon-active") !== null;
         const isInactive = card.querySelector(".icon-inactive") !== null;
         
-        if (city.includes(value) || street.includes(value) || food.includes(value) || (value === "active" && isActive) || (value === "inactive" && isInactive)) {
+        if (city.includes(value) || street.includes(value) || food === value || (value === "active" && isActive) || (value === "inactive" && isInactive)) {
             card.style.display = "flex";
         }else{    
             card.style.display = "none";
@@ -365,7 +365,27 @@ window.onload = () => {
     getCardsDataFromServer();
     setupEventListeners();
 };
-
+function removeUserChoice(){
+    const main = document.getElementsByClassName("listContainer")[0];
+    let locationCards = main.getElementsByTagName("a");
+    checkInputContent("",locationCards);
+    document.activeElement.blur();
+    localStorage.removeItem("userChoice");
+    document.querySelectorAll(".clickableSpan").forEach(span => {
+        span.classList.remove("highlighted");
+    });
+}
+function setUserChoice(modalElement){
+    const userChoice = localStorage.getItem("userChoice");
+    const modalInstance = bootstrap.Modal.getInstance(modalElement);
+    if (modalInstance){
+        modalInstance.hide();
+    }
+    document.activeElement.blur();
+    if (userChoice){
+        searchByCategory(userChoice.toLowerCase());
+    }
+}
 function setupEventListeners() {
     const modalElement = document.getElementById("categoryModal");
     const closeButton = document.getElementById("closeButton");
@@ -375,11 +395,9 @@ function setupEventListeners() {
     const viewInput = document.getElementsByClassName("page-view-input")[0];
     const clickableSpans = document.querySelectorAll(".clickableSpan");
     const setChoiceBtn = document.querySelector(".btn.btn-success");
+    
     setChoiceBtn.addEventListener("click",()=>{
-        const main = document.getElementsByClassName("listContainer")[0];
-        let locationCards = main.getElementsByTagName("a");
-        checkInputContent("",locationCards);
-        document.activeElement.blur();
+        removeUserChoice();
     })
     document.querySelectorAll(".btn-close").forEach(btn => {
         btn.addEventListener("click",()=>{
@@ -408,11 +426,7 @@ function setupEventListeners() {
     closeModalBtn.addEventListener("click", () => document.activeElement.blur());
 
     closeButton.addEventListener("click", () => {
-        const userChoice = localStorage.getItem("userChoice");
-        const modalInstance = bootstrap.Modal.getInstance(modalElement);
-        if (modalInstance) modalInstance.hide();
-        document.activeElement.blur();
-        if (userChoice) searchByCategory(userChoice.toLowerCase());
+        setUserChoice(modalElement);
     });
 
     modalElement.addEventListener("hidden.bs.modal", () => {

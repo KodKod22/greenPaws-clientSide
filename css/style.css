@@ -979,6 +979,12 @@ h1 + img {
 
 
 @media (min-width: 768px) and (max-width: 992px) {
+    #navContainer {
+        justify-content: flex-end;
+    }
+    .infoContainer {
+        margin-left: 150px;
+    }
     .mapWrapper {
         width: 90%;
     }
