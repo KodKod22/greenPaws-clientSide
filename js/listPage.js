@@ -233,7 +233,7 @@ function displayCategoryMenu(categoryButton) {
     const modalElement = document.getElementById("categoryModal");
     const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
 
-    if (window.innerWidth >= 375 && window.innerWidth <= 768) {
+    if (window.innerWidth >= 360 && window.innerWidth <= 768) {
         categoryButton.setAttribute("data-bs-toggle", "modal");
         categoryButton.setAttribute("data-bs-target", "#categoryModal");
 
@@ -468,27 +468,32 @@ window.addEventListener("resize", () => {
 
     if (!isSmallScreen && wasSmallScreen) {
     
-        if (modalInstance._isShown) {
-            modalInstance.hide();
-            document.activeElement.blur();
+        if (modalElement.classList.contains("show")) {
+            const forceClose = bootstrap.Modal.getOrCreateInstance(modalElement);
+            forceClose.hide();
         }
 
-        document.querySelectorAll('.modal-backdrop').forEach(b => b.remove());
-        document.body.classList.remove('modal-open');
-        document.body.style.removeProperty('overflow');
-        document.body.style.removeProperty('padding-right');
+        setTimeout(() => {
 
-   
-        CategoryText.removeAttribute("data-bs-toggle");
-        CategoryText.removeAttribute("data-bs-target");
+            document.querySelectorAll(".modal-backdrop").forEach(b => b.remove());
+        
+            document.body.classList.remove("modal-open");
+            document.body.style.overflow = "";
+            document.body.style.paddingRight = "";
 
-        localStorage.removeItem("userChoice");
-        document.querySelectorAll(".clickableSpan").forEach(span => {
-            span.classList.remove("highlighted");
-        });
+            modalElement.style.display = "none";
+            modalElement.classList.remove("show");
+
+            CategoryText.removeAttribute("data-bs-toggle");
+            CategoryText.removeAttribute("data-bs-target");
+
+            localStorage.removeItem("userChoice");
+            document.querySelectorAll(".clickableSpan").forEach(span => {
+                span.classList.remove("highlighted");
+            });
 
         menu.style.display = isMenuOpenManually ? "block" : "none";
-    }
-
+    }, 100);
+}
     wasSmallScreen = isSmallScreen;
 });
